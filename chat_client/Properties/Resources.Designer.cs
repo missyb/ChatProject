@@ -200,9 +200,29 @@ namespace chat_client.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap poop {
+            get {
+                object obj = ResourceManager.GetObject("poop", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap redlightc {
             get {
                 object obj = ResourceManager.GetObject("redlightc", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap shit_emoticon {
+            get {
+                object obj = ResourceManager.GetObject("shit_emoticon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

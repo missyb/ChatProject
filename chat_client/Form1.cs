@@ -331,6 +331,11 @@ namespace chat_client
                     img = Properties.Resources.slapping;
                     ReceiveEmoticon(img);
                     return 0;
+                    break; 
+                case "***###shit_emoticon###***":
+                    img = Properties.Resources.shit_emoticon;
+                    ReceiveEmoticon(img);
+                    return 0;
                     break;
                 default:
                     return 1;
@@ -424,7 +429,10 @@ namespace chat_client
 
         private void button10_Click(object sender, EventArgs e)
         {
-
+            Image img = Properties.Resources.shit_emoticon;
+            string name = button10.Tag.ToString();
+            string sendString = "***###" + name + "###***";
+            SendEmoticon(img, sendString);
         }
 
         private void button11_Click(object sender, EventArgs e)

@@ -47,19 +47,19 @@ namespace chat_client
             this.button2 = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.richTextBox1 = new chat_client.ExRichTextBox();
+            this.button14 = new System.Windows.Forms.Button();
+            this.button13 = new System.Windows.Forms.Button();
+            this.button12 = new System.Windows.Forms.Button();
+            this.button11 = new System.Windows.Forms.Button();
+            this.button10 = new System.Windows.Forms.Button();
+            this.button9 = new System.Windows.Forms.Button();
+            this.button8 = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
-            this.button8 = new System.Windows.Forms.Button();
-            this.button9 = new System.Windows.Forms.Button();
-            this.button10 = new System.Windows.Forms.Button();
-            this.button11 = new System.Windows.Forms.Button();
-            this.button12 = new System.Windows.Forms.Button();
-            this.button13 = new System.Windows.Forms.Button();
-            this.button14 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -203,6 +203,127 @@ namespace chat_client
             this.richTextBox1.Text = "";
             this.richTextBox1.TextColor = chat_client.RtfColor.Black;
             // 
+            // button14
+            // 
+            this.button14.Image = global::chat_client.Properties.Resources.slapping;
+            this.button14.Location = new System.Drawing.Point(709, 394);
+            this.button14.Name = "button14";
+            this.button14.Size = new System.Drawing.Size(60, 39);
+            this.button14.TabIndex = 23;
+            this.button14.Tag = "slapping";
+            this.button14.UseVisualStyleBackColor = true;
+            this.button14.Click += new System.EventHandler(this.button14_Click);
+            // 
+            // button13
+            // 
+            this.button13.Image = global::chat_client.Properties.Resources.black_eye;
+            this.button13.Location = new System.Drawing.Point(709, 343);
+            this.button13.Name = "button13";
+            this.button13.Size = new System.Drawing.Size(60, 45);
+            this.button13.TabIndex = 22;
+            this.button13.Tag = "black_eye";
+            this.button13.UseVisualStyleBackColor = true;
+            this.button13.Click += new System.EventHandler(this.button13_Click);
+            // 
+            // button12
+            // 
+            this.button12.Image = global::chat_client.Properties.Resources.ThumbsUp;
+            this.button12.Location = new System.Drawing.Point(742, 310);
+            this.button12.Name = "button12";
+            this.button12.Size = new System.Drawing.Size(27, 27);
+            this.button12.TabIndex = 21;
+            this.button12.Tag = "ThumbsUp";
+            this.button12.UseVisualStyleBackColor = true;
+            this.button12.Click += new System.EventHandler(this.button12_Click);
+            // 
+            // button11
+            // 
+            this.button11.Image = global::chat_client.Properties.Resources.DevilSmile;
+            this.button11.Location = new System.Drawing.Point(709, 310);
+            this.button11.Name = "button11";
+            this.button11.Size = new System.Drawing.Size(27, 27);
+            this.button11.TabIndex = 20;
+            this.button11.Tag = "DevilSmile";
+            this.button11.UseVisualStyleBackColor = true;
+            this.button11.Click += new System.EventHandler(this.button11_Click);
+            // 
+            // button10
+            // 
+            this.button10.Image = global::chat_client.Properties.Resources.poop;
+            this.button10.Location = new System.Drawing.Point(742, 277);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(27, 27);
+            this.button10.TabIndex = 19;
+            this.button10.Tag = "shit_emoticon";
+            this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.button10_Click);
+            // 
+            // button9
+            // 
+            this.button9.Image = global::chat_client.Properties.Resources.CrySmile;
+            this.button9.Location = new System.Drawing.Point(709, 277);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(27, 27);
+            this.button9.TabIndex = 18;
+            this.button9.Tag = "CrySmile";
+            this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
+            // 
+            // button8
+            // 
+            this.button8.Image = global::chat_client.Properties.Resources.ConfusedSmile;
+            this.button8.Location = new System.Drawing.Point(742, 244);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(27, 27);
+            this.button8.TabIndex = 17;
+            this.button8.Tag = "ConfusedSmile";
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
+            // 
+            // button7
+            // 
+            this.button7.Image = global::chat_client.Properties.Resources.BrokenHeart;
+            this.button7.Location = new System.Drawing.Point(709, 244);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(27, 27);
+            this.button7.TabIndex = 16;
+            this.button7.Tag = "BrokenHeart";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
+            // button6
+            // 
+            this.button6.Image = global::chat_client.Properties.Resources.Beer;
+            this.button6.Location = new System.Drawing.Point(742, 211);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(27, 27);
+            this.button6.TabIndex = 15;
+            this.button6.Tag = "Beer";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
+            // button5
+            // 
+            this.button5.Image = global::chat_client.Properties.Resources.AngrySmile;
+            this.button5.Location = new System.Drawing.Point(709, 211);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(27, 27);
+            this.button5.TabIndex = 14;
+            this.button5.Tag = "AngrySmile";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // button4
+            // 
+            this.button4.Image = global::chat_client.Properties.Resources.AngelSmile;
+            this.button4.Location = new System.Drawing.Point(742, 178);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(27, 27);
+            this.button4.TabIndex = 13;
+            this.button4.Tag = "AngelSmile";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
             // button3
             // 
             this.button3.Image = global::chat_client.Properties.Resources.EmbarassedSmile;
@@ -222,127 +343,6 @@ namespace chat_client
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 9;
             this.pictureBox1.TabStop = false;
-            // 
-            // button4
-            // 
-            this.button4.Image = global::chat_client.Properties.Resources.AngelSmile;
-            this.button4.Location = new System.Drawing.Point(742, 178);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(27, 27);
-            this.button4.TabIndex = 13;
-            this.button4.Tag = "AngelSmile";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
-            // 
-            // button5
-            // 
-            this.button5.Image = global::chat_client.Properties.Resources.AngrySmile;
-            this.button5.Location = new System.Drawing.Point(709, 211);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(27, 27);
-            this.button5.TabIndex = 14;
-            this.button5.Tag = "AngrySmile";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
-            // 
-            // button6
-            // 
-            this.button6.Image = global::chat_client.Properties.Resources.Beer;
-            this.button6.Location = new System.Drawing.Point(742, 211);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(27, 27);
-            this.button6.TabIndex = 15;
-            this.button6.Tag = "Beer";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
-            // 
-            // button7
-            // 
-            this.button7.Image = global::chat_client.Properties.Resources.BrokenHeart;
-            this.button7.Location = new System.Drawing.Point(709, 244);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(27, 27);
-            this.button7.TabIndex = 16;
-            this.button7.Tag = "BrokenHeart";
-            this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
-            // 
-            // button8
-            // 
-            this.button8.Image = global::chat_client.Properties.Resources.ConfusedSmile;
-            this.button8.Location = new System.Drawing.Point(742, 244);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(27, 27);
-            this.button8.TabIndex = 17;
-            this.button8.Tag = "ConfusedSmile";
-            this.button8.UseVisualStyleBackColor = true;
-            this.button8.Click += new System.EventHandler(this.button8_Click);
-            // 
-            // button9
-            // 
-            this.button9.Image = global::chat_client.Properties.Resources.CrySmile;
-            this.button9.Location = new System.Drawing.Point(709, 277);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(27, 27);
-            this.button9.TabIndex = 18;
-            this.button9.Tag = "CrySmile";
-            this.button9.UseVisualStyleBackColor = true;
-            this.button9.Click += new System.EventHandler(this.button9_Click);
-            // 
-            // button10
-            // 
-            this.button10.Image = global::chat_client.Properties.Resources.EmbarassedSmile;
-            this.button10.Location = new System.Drawing.Point(742, 277);
-            this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(27, 27);
-            this.button10.TabIndex = 19;
-            this.button10.Tag = "EmbarassedSmile";
-            this.button10.UseVisualStyleBackColor = true;
-            this.button10.Click += new System.EventHandler(this.button10_Click);
-            // 
-            // button11
-            // 
-            this.button11.Image = global::chat_client.Properties.Resources.DevilSmile;
-            this.button11.Location = new System.Drawing.Point(709, 310);
-            this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(27, 27);
-            this.button11.TabIndex = 20;
-            this.button11.Tag = "DevilSmile";
-            this.button11.UseVisualStyleBackColor = true;
-            this.button11.Click += new System.EventHandler(this.button11_Click);
-            // 
-            // button12
-            // 
-            this.button12.Image = global::chat_client.Properties.Resources.ThumbsUp;
-            this.button12.Location = new System.Drawing.Point(742, 310);
-            this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(27, 27);
-            this.button12.TabIndex = 21;
-            this.button12.Tag = "ThumbsUp";
-            this.button12.UseVisualStyleBackColor = true;
-            this.button12.Click += new System.EventHandler(this.button12_Click);
-            // 
-            // button13
-            // 
-            this.button13.Image = global::chat_client.Properties.Resources.black_eye;
-            this.button13.Location = new System.Drawing.Point(709, 343);
-            this.button13.Name = "button13";
-            this.button13.Size = new System.Drawing.Size(60, 45);
-            this.button13.TabIndex = 22;
-            this.button13.Tag = "black_eye";
-            this.button13.UseVisualStyleBackColor = true;
-            this.button13.Click += new System.EventHandler(this.button13_Click);
-            // 
-            // button14
-            // 
-            this.button14.Image = global::chat_client.Properties.Resources.slapping;
-            this.button14.Location = new System.Drawing.Point(709, 394);
-            this.button14.Name = "button14";
-            this.button14.Size = new System.Drawing.Size(60, 39);
-            this.button14.TabIndex = 23;
-            this.button14.Tag = "slapping";
-            this.button14.UseVisualStyleBackColor = true;
-            this.button14.Click += new System.EventHandler(this.button14_Click);
             // 
             // Form1
             // 
