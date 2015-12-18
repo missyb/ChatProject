@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Media;
 using System.Net.NetworkInformation;
+using System.Runtime.InteropServices;
 using System.Security.AccessControl;
 using System.Text;
 using System.Threading;
@@ -25,7 +26,11 @@ namespace chat_client
         private Socket sck;
         private EndPoint epLocal, epRemote;
         private string lHostName, oHostName, lHostChat, oHostChat;
-
+        
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        private static extern int SendMessage(IntPtr hWnd, int wMsg, IntPtr wParam, IntPtr lParam);
+        private const int WM_VSCROLL = 277;
+        private const int SB_PAGEBOTTOM = 7;
 
         public Form1()
         {
@@ -126,6 +131,7 @@ namespace chat_client
                         string message = oHostChat + ": " + receivedMessage;
                         AppendText(message, Color.Red, true);
                         AppendText("", Color.Azure, true);
+                        ScrollToBottom(richTextBox1);
                         ReceiveSound();
                         FlashWindow.Flash(this);       
                     }
@@ -182,6 +188,7 @@ namespace chat_client
                 {
                     string message = "Me: " + textMessage.Text;
                     AppendText(message, Color.Blue, true);
+                    ScrollToBottom(richTextBox1);
                     SendSound();    
                 }
                
@@ -251,11 +258,11 @@ namespace chat_client
 
             richTextBox1.SelectionStart = richTextBox1.TextLength;
             richTextBox1.SelectionLength = 0;
-
+            
             richTextBox1.SelectionColor = color;
             richTextBox1.AppendText(text);
             richTextBox1.SelectionColor = richTextBox1.ForeColor;
-            richTextBox1.ScrollToCaret();
+            ScrollToBottom(richTextBox1);
         }
 
         public int AnalyzeReceived(string transmission)
@@ -344,25 +351,29 @@ namespace chat_client
           
         }
 
+        public static void ScrollToBottom(RichTextBox MyRichTextBox)
+        {
+            SendMessage(MyRichTextBox.Handle, WM_VSCROLL, (IntPtr)SB_PAGEBOTTOM, IntPtr.Zero);
+        }
+
         private void ReceiveEmoticon(Image image)
         {
             AppendText(oHostChat + ": ", Color.Red);
             richTextBox1.SelectionStart = richTextBox1.Text.Length;
             richTextBox1.InsertImage(image);
-            richTextBox1.ScrollToCaret();
             AppendText("", Color.Red, true);
+            ScrollToBottom(richTextBox1);
             
         }
 
         private void SendEmoticon(Image image, string sendString)
         {
             AppendText("Me :", Color.Blue, false);
-
             Clipboard.SetImage(image);
             richTextBox1.Paste();
             Clipboard.Clear();
-
             AppendText("", Color.Blue, true);
+            ScrollToBottom(richTextBox1);
 
             System.Text.ASCIIEncoding enc = new System.Text.ASCIIEncoding();
             byte[] msg = new byte[1500];
