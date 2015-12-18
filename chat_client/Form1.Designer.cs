@@ -1,6 +1,7 @@
 ﻿using System.Drawing;
 using System.Windows.Forms.VisualStyles;
 
+
 namespace chat_client
 {
     partial class Form1
@@ -209,8 +210,8 @@ namespace chat_client
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(27, 27);
             this.button3.TabIndex = 11;
+            this.button3.Tag = "EmbarassedSmile";
             this.button3.UseVisualStyleBackColor = true;
-            this.button3.Tag = button3.Image.ToString();
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // pictureBox1
@@ -229,7 +230,9 @@ namespace chat_client
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(27, 27);
             this.button4.TabIndex = 13;
+            this.button4.Tag = "AngelSmile";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // button5
             // 
@@ -238,7 +241,9 @@ namespace chat_client
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(27, 27);
             this.button5.TabIndex = 14;
+            this.button5.Tag = "AngrySmile";
             this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // button6
             // 
@@ -247,7 +252,9 @@ namespace chat_client
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(27, 27);
             this.button6.TabIndex = 15;
+            this.button6.Tag = "Beer";
             this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // button7
             // 
@@ -256,7 +263,9 @@ namespace chat_client
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(27, 27);
             this.button7.TabIndex = 16;
+            this.button7.Tag = "BrokenHeart";
             this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // button8
             // 
@@ -265,7 +274,9 @@ namespace chat_client
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(27, 27);
             this.button8.TabIndex = 17;
+            this.button8.Tag = "ConfusedSmile";
             this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
             // button9
             // 
@@ -274,7 +285,9 @@ namespace chat_client
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(27, 27);
             this.button9.TabIndex = 18;
+            this.button9.Tag = "CrySmile";
             this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
             // 
             // button10
             // 
@@ -283,7 +296,9 @@ namespace chat_client
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(27, 27);
             this.button10.TabIndex = 19;
+            this.button10.Tag = "EmbarassedSmile";
             this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.button10_Click);
             // 
             // button11
             // 
@@ -292,7 +307,9 @@ namespace chat_client
             this.button11.Name = "button11";
             this.button11.Size = new System.Drawing.Size(27, 27);
             this.button11.TabIndex = 20;
+            this.button11.Tag = "DevilSmile";
             this.button11.UseVisualStyleBackColor = true;
+            this.button11.Click += new System.EventHandler(this.button11_Click);
             // 
             // button12
             // 
@@ -301,7 +318,9 @@ namespace chat_client
             this.button12.Name = "button12";
             this.button12.Size = new System.Drawing.Size(27, 27);
             this.button12.TabIndex = 21;
+            this.button12.Tag = "ThumbsUp";
             this.button12.UseVisualStyleBackColor = true;
+            this.button12.Click += new System.EventHandler(this.button12_Click);
             // 
             // button13
             // 
@@ -310,7 +329,9 @@ namespace chat_client
             this.button13.Name = "button13";
             this.button13.Size = new System.Drawing.Size(60, 45);
             this.button13.TabIndex = 22;
+            this.button13.Tag = "black_eye";
             this.button13.UseVisualStyleBackColor = true;
+            this.button13.Click += new System.EventHandler(this.button13_Click);
             // 
             // button14
             // 
@@ -319,7 +340,9 @@ namespace chat_client
             this.button14.Name = "button14";
             this.button14.Size = new System.Drawing.Size(60, 39);
             this.button14.TabIndex = 23;
+            this.button14.Tag = "slapping";
             this.button14.UseVisualStyleBackColor = true;
+            this.button14.Click += new System.EventHandler(this.button14_Click);
             // 
             // Form1
             // 

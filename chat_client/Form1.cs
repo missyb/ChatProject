@@ -260,6 +260,7 @@ namespace chat_client
 
         public int AnalyzeReceived(string transmission)
         {
+            Image img = null;
             switch (transmission)
             {    case "***###LOCK###***": 
                     pictureBox1.Image = Properties.Resources.yellowlight;
@@ -276,12 +277,62 @@ namespace chat_client
                     label5.Text = "Offline";
                     return 0;
                     break;
-                case "***###IMG_GREEN###***":
-                    Image img = Properties.Resources.greenlight;
-                     ReceiveEmoticon(img);
+                case "***###EmbarassedSmile###***":
+                    img = Properties.Resources.EmbarassedSmile;
+                    ReceiveEmoticon(img);
                     return 0;
                     break;
-               default:
+                case "***###AngelSmile###***":
+                     img = Properties.Resources.AngelSmile;
+                    ReceiveEmoticon(img);
+                    return 0;
+                    break;
+                case "***###AngrySmile###***":
+                     img = Properties.Resources.AngrySmile;
+                    ReceiveEmoticon(img);
+                    return 0;
+                    break;
+                case "***###Beer###***":
+                    img = Properties.Resources.Beer;
+                    ReceiveEmoticon(img);
+                    return 0;
+                    break;
+                case "***###BrokenHeart###***":
+                    img = Properties.Resources.BrokenHeart;
+                    ReceiveEmoticon(img);
+                    return 0;
+                    break;
+                case "***###ConfusedSmile###***":
+                    img = Properties.Resources.ConfusedSmile;
+                    ReceiveEmoticon(img);
+                    return 0;
+                    break;
+                case "***###CrySmile###***":
+                    img = Properties.Resources.CrySmile;
+                    ReceiveEmoticon(img);
+                    return 0;
+                    break;
+                case "***###DevilSmile###***":
+                    img = Properties.Resources.DevilSmile;
+                    ReceiveEmoticon(img);
+                    return 0;
+                    break;
+                case "***###ThumbsUp###***":
+                    img = Properties.Resources.ThumbsUp;
+                    ReceiveEmoticon(img);
+                    return 0;
+                    break;
+                case "***###black_eye###***":
+                    img = Properties.Resources.black_eye;
+                    ReceiveEmoticon(img);
+                    return 0;
+                    break;
+                case "***###slapping###***":
+                    img = Properties.Resources.slapping;
+                    ReceiveEmoticon(img);
+                    return 0;
+                    break;
+                default:
                     return 1;
             }
             
@@ -290,17 +341,17 @@ namespace chat_client
 
         private void ReceiveEmoticon(Image image)
         {
-            AppendText(oHostChat + ": ", Color.Blue, true);
+            AppendText(oHostChat + ": ", Color.Red);
             richTextBox1.SelectionStart = richTextBox1.Text.Length;
             richTextBox1.InsertImage(image);
             richTextBox1.ScrollToCaret();
-            AppendText("", Color.Blue, true);
+            AppendText("", Color.Red, true);
             
         }
 
         private void SendEmoticon(Image image, string sendString)
         {
-            AppendText("Me :", Color.Blue, true);
+            AppendText("Me :", Color.Blue, false);
 
             Clipboard.SetImage(image);
             richTextBox1.Paste();
@@ -316,14 +367,96 @@ namespace chat_client
 
         private void button3_Click(object sender, EventArgs e)
         {
-            //Image img = (Image)sender;
-            //string name = Properties.Resources.greenlight.ToString();
-
             Image img = Properties.Resources.EmbarassedSmile;
-            //img.Text = "This is a " + sender.GetType().ToString();
-            string sendString = "***###" + Properties.Resources.greenlight.ToString() + "###***";
+            string name = button3.Tag.ToString();
+            string sendString = "***###" + name + "###***";
             SendEmoticon(img, sendString);
             
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Image img = Properties.Resources.AngelSmile;
+            string name = button4.Tag.ToString();
+            string sendString = "***###" + name + "###***";
+            SendEmoticon(img, sendString);
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            Image img = Properties.Resources.AngrySmile;
+            string name = button5.Tag.ToString();
+            string sendString = "***###" + name + "###***";
+            SendEmoticon(img, sendString);
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            Image img = Properties.Resources.Beer;
+            string name = button6.Tag.ToString();
+            string sendString = "***###" + name + "###***";
+            SendEmoticon(img, sendString);
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            Image img = Properties.Resources.BrokenHeart;
+            string name = button7.Tag.ToString();
+            string sendString = "***###" + name + "###***";
+            SendEmoticon(img, sendString);
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            Image img = Properties.Resources.ConfusedSmile;
+            string name = button8.Tag.ToString();
+            string sendString = "***###" + name + "###***";
+            SendEmoticon(img, sendString);
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            Image img = Properties.Resources.CrySmile;
+            string name = button9.Tag.ToString();
+            string sendString = "***###" + name + "###***";
+            SendEmoticon(img, sendString);
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            Image img = Properties.Resources.DevilSmile;
+            string name = button11.Tag.ToString();
+            string sendString = "***###" + name + "###***";
+            SendEmoticon(img, sendString);
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            Image img = Properties.Resources.ThumbsUp;
+            string name = button12.Tag.ToString();
+            string sendString = "***###" + name + "###***";
+            SendEmoticon(img, sendString);
+        }
+
+        private void button13_Click(object sender, EventArgs e)
+        {
+            Image img = Properties.Resources.black_eye;
+            string name = button13.Tag.ToString();
+            string sendString = "***###" + name + "###***";
+            SendEmoticon(img, sendString);
+        }
+
+        private void button14_Click(object sender, EventArgs e)
+        {
+            Image img = Properties.Resources.slapping;
+            string name = button14.Tag.ToString();
+            string sendString = "***###" + name + "###***";
+            SendEmoticon(img, sendString);
         }
     }
 }
