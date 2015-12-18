@@ -1,4 +1,7 @@
-﻿namespace chat_client
+﻿using System.Drawing;
+using System.Windows.Forms.VisualStyles;
+
+namespace chat_client
 {
     partial class Form1
     {
@@ -41,13 +44,21 @@
             this.textMessage = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.listView1 = new System.Windows.Forms.ListView();
-            this.Messages = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label5 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.richTextBox1 = new chat_client.ExRichTextBox();
             this.button3 = new System.Windows.Forms.Button();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.listBox1 = new chat_client.ImprovedListBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
+            this.button8 = new System.Windows.Forms.Button();
+            this.button9 = new System.Windows.Forms.Button();
+            this.button10 = new System.Windows.Forms.Button();
+            this.button11 = new System.Windows.Forms.Button();
+            this.button12 = new System.Windows.Forms.Button();
+            this.button13 = new System.Windows.Forms.Button();
+            this.button14 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -59,9 +70,9 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.textLocalPort);
             this.groupBox1.Controls.Add(this.textLocalIP);
-            this.groupBox1.Location = new System.Drawing.Point(30, 32);
+            this.groupBox1.Location = new System.Drawing.Point(30, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(281, 137);
+            this.groupBox1.Size = new System.Drawing.Size(281, 92);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "groupBox1";
@@ -69,7 +80,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(19, 99);
+            this.label2.Location = new System.Drawing.Point(19, 64);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(26, 13);
             this.label2.TabIndex = 7;
@@ -78,7 +89,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(19, 48);
+            this.label1.Location = new System.Drawing.Point(19, 31);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(57, 13);
             this.label1.TabIndex = 6;
@@ -86,14 +97,14 @@
             // 
             // textLocalPort
             // 
-            this.textLocalPort.Location = new System.Drawing.Point(92, 92);
+            this.textLocalPort.Location = new System.Drawing.Point(92, 57);
             this.textLocalPort.Name = "textLocalPort";
             this.textLocalPort.Size = new System.Drawing.Size(167, 20);
             this.textLocalPort.TabIndex = 1;
             // 
             // textLocalIP
             // 
-            this.textLocalIP.Location = new System.Drawing.Point(92, 48);
+            this.textLocalIP.Location = new System.Drawing.Point(92, 31);
             this.textLocalIP.Name = "textLocalIP";
             this.textLocalIP.Size = new System.Drawing.Size(167, 20);
             this.textLocalIP.TabIndex = 0;
@@ -104,9 +115,9 @@
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.textFriendPort);
             this.groupBox2.Controls.Add(this.textFriendIP);
-            this.groupBox2.Location = new System.Drawing.Point(408, 32);
+            this.groupBox2.Location = new System.Drawing.Point(408, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(295, 137);
+            this.groupBox2.Size = new System.Drawing.Size(295, 92);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "groupBox2";
@@ -114,7 +125,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(26, 99);
+            this.label4.Location = new System.Drawing.Point(26, 64);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(26, 13);
             this.label4.TabIndex = 8;
@@ -123,7 +134,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(26, 48);
+            this.label3.Location = new System.Drawing.Point(26, 28);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(57, 13);
             this.label3.TabIndex = 7;
@@ -131,14 +142,14 @@
             // 
             // textFriendPort
             // 
-            this.textFriendPort.Location = new System.Drawing.Point(113, 92);
+            this.textFriendPort.Location = new System.Drawing.Point(113, 57);
             this.textFriendPort.Name = "textFriendPort";
             this.textFriendPort.Size = new System.Drawing.Size(167, 20);
             this.textFriendPort.TabIndex = 2;
             // 
             // textFriendIP
             // 
-            this.textFriendIP.Location = new System.Drawing.Point(113, 48);
+            this.textFriendIP.Location = new System.Drawing.Point(113, 28);
             this.textFriendIP.Name = "textFriendIP";
             this.textFriendIP.Size = new System.Drawing.Size(167, 20);
             this.textFriendIP.TabIndex = 1;
@@ -153,7 +164,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(709, 104);
+            this.button1.Location = new System.Drawing.Point(715, 41);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 4;
@@ -171,85 +182,168 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // listView1
-            // 
-            this.listView1.AutoArrange = false;
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.Messages});
-            this.listView1.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.listView1.Location = new System.Drawing.Point(30, 222);
-            this.listView1.Name = "listView1";
-            this.listView1.ShowItemToolTips = true;
-            this.listView1.Size = new System.Drawing.Size(673, 223);
-            this.listView1.TabIndex = 6;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.List;
-            // 
-            // Messages
-            // 
-            this.Messages.Text = "";
-            this.Messages.Width = 669;
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(119, 197);
+            this.label5.Location = new System.Drawing.Point(100, 132);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(35, 13);
             this.label5.TabIndex = 10;
             this.label5.Text = "label5";
             // 
+            // richTextBox1
+            // 
+            this.richTextBox1.ForeColor = System.Drawing.Color.Green;
+            this.richTextBox1.HiglightColor = chat_client.RtfColor.White;
+            this.richTextBox1.Location = new System.Drawing.Point(30, 166);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(673, 279);
+            this.richTextBox1.TabIndex = 12;
+            this.richTextBox1.Text = "";
+            this.richTextBox1.TextColor = chat_client.RtfColor.Black;
+            // 
+            // button3
+            // 
+            this.button3.Image = global::chat_client.Properties.Resources.EmbarassedSmile;
+            this.button3.Location = new System.Drawing.Point(709, 178);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(27, 27);
+            this.button3.TabIndex = 11;
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Tag = button3.Image.ToString();
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(52, 175);
+            this.pictureBox1.Location = new System.Drawing.Point(33, 110);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(54, 50);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 9;
             this.pictureBox1.TabStop = false;
             // 
-            // button3
+            // button4
             // 
-            this.button3.Image = global::chat_client.Properties.Resources.greenlight;
-            this.button3.Location = new System.Drawing.Point(709, 229);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 57);
-            this.button3.TabIndex = 11;
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.button4.Image = global::chat_client.Properties.Resources.AngelSmile;
+            this.button4.Location = new System.Drawing.Point(742, 178);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(27, 27);
+            this.button4.TabIndex = 13;
+            this.button4.UseVisualStyleBackColor = true;
             // 
-            // richTextBox1
+            // button5
             // 
-            this.richTextBox1.ForeColor = System.Drawing.Color.Green;
-            this.richTextBox1.Location = new System.Drawing.Point(210, 213);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(493, 232);
-            this.richTextBox1.TabIndex = 12;
-            this.richTextBox1.Text = "";
+            this.button5.Image = global::chat_client.Properties.Resources.AngrySmile;
+            this.button5.Location = new System.Drawing.Point(709, 211);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(27, 27);
+            this.button5.TabIndex = 14;
+            this.button5.UseVisualStyleBackColor = true;
             // 
-            // listBox1
+            // button6
             // 
-            this.listBox1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(30, 229);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(673, 199);
-            this.listBox1.TabIndex = 2;
+            this.button6.Image = global::chat_client.Properties.Resources.Beer;
+            this.button6.Location = new System.Drawing.Point(742, 211);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(27, 27);
+            this.button6.TabIndex = 15;
+            this.button6.UseVisualStyleBackColor = true;
+            // 
+            // button7
+            // 
+            this.button7.Image = global::chat_client.Properties.Resources.BrokenHeart;
+            this.button7.Location = new System.Drawing.Point(709, 244);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(27, 27);
+            this.button7.TabIndex = 16;
+            this.button7.UseVisualStyleBackColor = true;
+            // 
+            // button8
+            // 
+            this.button8.Image = global::chat_client.Properties.Resources.ConfusedSmile;
+            this.button8.Location = new System.Drawing.Point(742, 244);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(27, 27);
+            this.button8.TabIndex = 17;
+            this.button8.UseVisualStyleBackColor = true;
+            // 
+            // button9
+            // 
+            this.button9.Image = global::chat_client.Properties.Resources.CrySmile;
+            this.button9.Location = new System.Drawing.Point(709, 277);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(27, 27);
+            this.button9.TabIndex = 18;
+            this.button9.UseVisualStyleBackColor = true;
+            // 
+            // button10
+            // 
+            this.button10.Image = global::chat_client.Properties.Resources.EmbarassedSmile;
+            this.button10.Location = new System.Drawing.Point(742, 277);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(27, 27);
+            this.button10.TabIndex = 19;
+            this.button10.UseVisualStyleBackColor = true;
+            // 
+            // button11
+            // 
+            this.button11.Image = global::chat_client.Properties.Resources.DevilSmile;
+            this.button11.Location = new System.Drawing.Point(709, 310);
+            this.button11.Name = "button11";
+            this.button11.Size = new System.Drawing.Size(27, 27);
+            this.button11.TabIndex = 20;
+            this.button11.UseVisualStyleBackColor = true;
+            // 
+            // button12
+            // 
+            this.button12.Image = global::chat_client.Properties.Resources.ThumbsUp;
+            this.button12.Location = new System.Drawing.Point(742, 310);
+            this.button12.Name = "button12";
+            this.button12.Size = new System.Drawing.Size(27, 27);
+            this.button12.TabIndex = 21;
+            this.button12.UseVisualStyleBackColor = true;
+            // 
+            // button13
+            // 
+            this.button13.Image = global::chat_client.Properties.Resources.black_eye;
+            this.button13.Location = new System.Drawing.Point(709, 343);
+            this.button13.Name = "button13";
+            this.button13.Size = new System.Drawing.Size(60, 45);
+            this.button13.TabIndex = 22;
+            this.button13.UseVisualStyleBackColor = true;
+            // 
+            // button14
+            // 
+            this.button14.Image = global::chat_client.Properties.Resources.slapping;
+            this.button14.Location = new System.Drawing.Point(709, 394);
+            this.button14.Name = "button14";
+            this.button14.Size = new System.Drawing.Size(60, 39);
+            this.button14.TabIndex = 23;
+            this.button14.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(802, 490);
+            this.Controls.Add(this.button14);
+            this.Controls.Add(this.button13);
+            this.Controls.Add(this.button12);
+            this.Controls.Add(this.button11);
+            this.Controls.Add(this.button10);
+            this.Controls.Add(this.button9);
+            this.Controls.Add(this.button8);
+            this.Controls.Add(this.button7);
+            this.Controls.Add(this.button6);
+            this.Controls.Add(this.button5);
+            this.Controls.Add(this.button4);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.listView1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textMessage);
-            this.Controls.Add(this.listBox1);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "Form1";
@@ -279,13 +373,21 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ListView listView1;
-        private System.Windows.Forms.ColumnHeader Messages;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label5;
-        private ImprovedListBox listBox1;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private ExRichTextBox richTextBox1;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.Button button9;
+        private System.Windows.Forms.Button button10;
+        private System.Windows.Forms.Button button11;
+        private System.Windows.Forms.Button button12;
+        private System.Windows.Forms.Button button13;
+        private System.Windows.Forms.Button button14;
     }
 }
 

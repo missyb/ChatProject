@@ -63,6 +63,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExRichTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="FlashWindow.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -141,6 +144,39 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\greenlight2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AngelSmile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AngrySmile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Beer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BrokenHeart.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ConfusedSmile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CrySmile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DevilSmile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EmbarassedSmile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ThumbsUp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\black-eye.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\slapping.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

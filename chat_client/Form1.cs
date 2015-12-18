@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Text;
 using System.IO;
 using System.Linq;
 using System.Media;
@@ -122,32 +123,11 @@ namespace chat_client
 
                     if (AnalyzeReceived(receivedMessage.Trim('\0')) == 1) //1 will be acutal message
                     {
-
                         string message = oHostChat + ": " + receivedMessage;
-
-                        //ListViewItem lvi = new ListViewItem(message);
-                        //lvi.ForeColor = Color.Red;
-                        //listView1.Items.Add(lvi);
-                        //listView1.Items[listView1.Items.Count - 1].EnsureVisible();
-
-                        //richTextBox1.SelectionStart = richTextBox1.Text.Length;
-                        //richTextBox1.ScrollToCaret();
-                        //Clipboard.SetText(message);
-                        //richTextBox1.Paste();
-                        //richTextBox1.SelectionStart = richTextBox1.Text.Length;
-                        //richTextBox1.ScrollToCaret();
-                        //richTextBox1.Find(message);
-                        //richTextBox1.SelectionColor = Color.Red;
                         AppendText(message, Color.Red, true);
                         AppendText("", Color.Azure, true);
                         ReceiveSound();
-                        FlashWindow.Flash(this);
-
-                        //listBox1.Items.Add(oHostChat + ": " + receivedMessage);
-                        //((ImprovedListBox) listBox1).SetItemColor(listBox1.Items.Count - 1, System.Drawing.Color.Red);
-                        //listBox1.TopIndex = listBox1.Items.Count - 1;
-                        //ReceiveSound();
-                        //FlashWindow.Flash(this);
+                        FlashWindow.Flash(this);       
                     }
                 }
                 byte[] buffer = new byte[1500];
@@ -176,7 +156,7 @@ namespace chat_client
                     new AsyncCallback(MessageCallBack), buffer);
 
                 button1.Text = "Connected";
-                button1.Enabled = false;
+                //button1.Enabled = false;
                 button2.Enabled = true;
                 textMessage.Focus();
             }
@@ -190,8 +170,7 @@ namespace chat_client
         {
             try
             {
-                
-                System.Text.ASCIIEncoding enc = new System.Text.ASCIIEncoding();
+               System.Text.ASCIIEncoding enc = new System.Text.ASCIIEncoding();
                byte[] msg = new byte[1500];
                 msg = enc.GetBytes(textMessage.Text);
 
@@ -202,30 +181,8 @@ namespace chat_client
                 if (size > 0)
                 {
                     string message = "Me: " + textMessage.Text;
-                    
-                    
                     AppendText(message, Color.Blue, true);
-                    
-                    
-                     //ListViewItem lvi = new ListViewItem(message);
-                    //lvi.ForeColor = Color.Blue;
-                    //listView1.Items.Add(lvi);
-                    //listView1.Items[listView1.Items.Count - 1].EnsureVisible();
-                    SendSound();
-
-                    //richTextBox1.SelectionStart = richTextBox1.Text.Length;
-                    //richTextBox1.ScrollToCaret();
-                    //Clipboard.SetText(message);
-                    //richTextBox1.Paste();
-                    //richTextBox1.SelectionStart = richTextBox1.Text.Length;
-                    //richTextBox1.ScrollToCaret();
-                    //richTextBox1.Find(message);
-                    //richTextBox1.SelectionColor = Color.Blue;
-
-                    //listBox1.Items.Add("Me: " + textMessage.Text);
-                    //((ImprovedListBox)listBox1).SetItemColor(listBox1.Items.Count-1, System.Drawing.Color.Blue);
-                    //listBox1.TopIndex = listBox1.Items.Count-1;
-                    //SendSound();
+                    SendSound();    
                 }
                
                 textMessage.Clear();
@@ -284,42 +241,8 @@ namespace chat_client
             }
         }
 
-        private void button3_Click(object sender, EventArgs e)
-        {
-            
-           // ImageList imgs = new ImageList();
-           // imgs.ImageSize = new Size(50, 50);
-           // imgs.Images.Add("Green", Properties.Resources.greenlight);
-
-           //// listView1.View = View.LargeIcon;
-           // listView1.LargeImageList = imgs;
-
-           // ListViewItem item = new ListViewItem();
-           // item.ImageIndex = 0;
-           // listView1.Items.Add(item);
-
-
-            Image img = Properties.Resources.greenlight;
-            AppendText("Me :", Color.Blue, true);
-
-            Clipboard.SetImage(img);
-                                   
-            Clipboard.Clear();
        
-            AppendText("", Color.Blue, true);
-            
-            System.Text.ASCIIEncoding enc = new System.Text.ASCIIEncoding();
-            byte[] msg = new byte[1500];
-            msg = enc.GetBytes("***###IMG_GREEN###***");
-            sck.Send(msg);
-           
-           //ListViewItem item = new ListViewItem();
-            //listView1.Items.Add(Image.FromFile(Properties.Resources.greenlight));
-            //item.ImageIndex = Properties.Resources.greenlight;
-            // listView1.Items.Add(item);
-        }
-
-        public void AppendText(string text, Color color, bool AddNewLine = false)
+       public void AppendText(string text, Color color, bool AddNewLine = false)
         {
             if (AddNewLine)
             {
@@ -348,22 +271,59 @@ namespace chat_client
                     label5.Text = "Online";
                     return 0;
                     break;
+                case "***###OFF###***":
+                    pictureBox1.Image = Properties.Resources.whitelight;
+                    label5.Text = "Offline";
+                    return 0;
+                    break;
                 case "***###IMG_GREEN###***":
                     Image img = Properties.Resources.greenlight;
-                    AppendText("Me :", Color.Blue, true);
-            
-                    Clipboard.SetImage(img);
-                    richTextBox1.SelectionStart = richTextBox1.Text.Length;
-                    richTextBox1.ScrollToCaret();
-                    richTextBox1.Paste();
-                    Clipboard.Clear();
-                    AppendText("", Color.Blue, true);
+                     ReceiveEmoticon(img);
                     return 0;
                     break;
                default:
                     return 1;
             }
-                  
+            
+          
+        }
+
+        private void ReceiveEmoticon(Image image)
+        {
+            AppendText(oHostChat + ": ", Color.Blue, true);
+            richTextBox1.SelectionStart = richTextBox1.Text.Length;
+            richTextBox1.InsertImage(image);
+            richTextBox1.ScrollToCaret();
+            AppendText("", Color.Blue, true);
+            
+        }
+
+        private void SendEmoticon(Image image, string sendString)
+        {
+            AppendText("Me :", Color.Blue, true);
+
+            Clipboard.SetImage(image);
+            richTextBox1.Paste();
+            Clipboard.Clear();
+
+            AppendText("", Color.Blue, true);
+
+            System.Text.ASCIIEncoding enc = new System.Text.ASCIIEncoding();
+            byte[] msg = new byte[1500];
+            msg = enc.GetBytes(sendString);
+            sck.Send(msg);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            //Image img = (Image)sender;
+            //string name = Properties.Resources.greenlight.ToString();
+
+            Image img = Properties.Resources.EmbarassedSmile;
+            //img.Text = "This is a " + sender.GetType().ToString();
+            string sendString = "***###" + Properties.Resources.greenlight.ToString() + "###***";
+            SendEmoticon(img, sendString);
+            
         }
     }
 }

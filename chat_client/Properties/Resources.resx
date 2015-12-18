@@ -118,6 +118,18 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="AngelSmile" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\AngelSmile.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AngrySmile" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\AngrySmile.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Beer" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Beer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="black_eye" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\black-eye.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="bloop_x" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\bloop_x.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -127,6 +139,21 @@
   <data name="boing_spring" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\boing_spring.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="BrokenHeart" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BrokenHeart.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ConfusedSmile" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ConfusedSmile.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CrySmile" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CrySmile.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DevilSmile" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DevilSmile.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="EmbarassedSmile" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\EmbarassedSmile.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="greenlight" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\greenlight.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -135,6 +162,12 @@
   </data>
   <data name="redlightc" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\redlightc.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="slapping" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\slapping.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ThumbsUp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ThumbsUp.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="whitelight" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\whitelight.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
