@@ -210,10 +210,10 @@ namespace chat_client
                     theConversation += message + "\n";
                     ScrollToBottom(richTextBox1);
                     SendSound();
-                    if (Form1.ActiveForm.Activated)
-                    {
-                        deleteLast.Enabled = true;
-                    }
+                    //if (Form1.ActiveForm.Activated)
+                    //{
+                    //    deleteLast.Enabled = true;
+                    //}
                 }
                
                 textMessage.Clear();
@@ -541,12 +541,16 @@ namespace chat_client
 
         private void Form1_Activated(object sender, EventArgs e)
         {
+            System.Text.ASCIIEncoding enc = new System.Text.ASCIIEncoding();
+            byte[] msg = new byte[1500];
             msg = enc.GetBytes("***###ACTIVATED###***");
             sck.Send(msg);
         }
 
         private void Form1_Deactivate(object sender, EventArgs e)
         {
+            System.Text.ASCIIEncoding enc = new System.Text.ASCIIEncoding();
+            byte[] msg = new byte[1500];
             msg = enc.GetBytes("***###DEACTIVATED###***");
             sck.Send(msg);
         }
