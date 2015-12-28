@@ -27,7 +27,7 @@ namespace chat_client
         private EndPoint epLocal, epRemote;
         private string lHostName, oHostName, lHostChat, oHostChat;
         public string theConversation;
-        public bool active;
+        public bool active, connectedToSocket = false;
         
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         private static extern int SendMessage(IntPtr hWnd, int wMsg, IntPtr wParam, IntPtr lParam);
@@ -184,6 +184,7 @@ namespace chat_client
                 //button1.Enabled = false;
                 button2.Enabled = true;
                 textMessage.Focus();
+                connectedToSocket = true;
             }
             catch (Exception ex)
             {
@@ -541,18 +542,24 @@ namespace chat_client
 
         private void Form1_Activated(object sender, EventArgs e)
         {
-            System.Text.ASCIIEncoding enc = new System.Text.ASCIIEncoding();
-            byte[] msg = new byte[1500];
-            msg = enc.GetBytes("***###ACTIVATED###***");
-            sck.Send(msg);
+            if (connectedToSocket == true)
+            {
+                System.Text.ASCIIEncoding enc = new System.Text.ASCIIEncoding();
+                byte[] msg = new byte[1500];
+                msg = enc.GetBytes("***###ACTIVATED###***");
+                sck.Send(msg);
+            }
         }
 
         private void Form1_Deactivate(object sender, EventArgs e)
         {
-            System.Text.ASCIIEncoding enc = new System.Text.ASCIIEncoding();
-            byte[] msg = new byte[1500];
-            msg = enc.GetBytes("***###DEACTIVATED###***");
-            sck.Send(msg);
+            if (connectedToSocket == true)
+            {
+                System.Text.ASCIIEncoding enc = new System.Text.ASCIIEncoding();
+                byte[] msg = new byte[1500];
+                msg = enc.GetBytes("***###DEACTIVATED###***");
+                sck.Send(msg);
+            }
         }
     }
 }
