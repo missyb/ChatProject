@@ -299,12 +299,12 @@ namespace chat_client
             {
                 case "***###ACTIVATED###***":
                     active = true;
-                    MessageBox.Show("Activated");
+                    label6.Text = "Activated";
                     return 0;
                     break;
                 case "***###DEACTIVATED###***":
                     active = false;
-                    MessageBox.Show("Deactivated");
+                    label6.Text = "Deactivated";
                     return 0;
                     break;
                 case "***###LOCK###***": 
