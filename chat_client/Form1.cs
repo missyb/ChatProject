@@ -26,6 +26,8 @@ namespace chat_client
         private Socket sck;
         private EndPoint epLocal, epRemote;
         private string lHostName, oHostName, lHostChat, oHostChat;
+        public string theConversation;
+        public bool active;
         
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         private static extern int SendMessage(IntPtr hWnd, int wMsg, IntPtr wParam, IntPtr lParam);
@@ -126,16 +128,23 @@ namespace chat_client
 
                     ASCIIEncoding eEncoding = new ASCIIEncoding();
                     string receivedMessage = eEncoding.GetString(receivedData);
-
-
+                                        
                     if (AnalyzeReceived(receivedMessage.Trim('\0')) == 1) //1 will be acutal message
                     {
-                        string message = oHostChat + ": " + receivedMessage;
+                        string message = oHostChat + ": " + receivedMessage.Trim('\0');
                         AppendText(message, Color.Red, true);
                         AppendText("", Color.Azure, true);
+                        theConversation += message + "\n";
                         ScrollToBottom(richTextBox1);
                         ReceiveSound();
-                        FlashWindow.Flash(this);       
+                        this.Invoke((Action)delegate
+                        {
+                            FlashWindow.Flash(this);
+                        });
+                    }
+                    else
+                    {
+                        theConversation += oHostChat+": "+ receivedMessage.Trim('\0')+"\n";               //the ghost conversation so you can delete
                     }
                 }
                 byte[] buffer = new byte[1500];
@@ -198,8 +207,13 @@ namespace chat_client
                 {
                     string message = "Me: " + textMessage.Text;
                     AppendText(message, Color.Blue, true);
+                    theConversation += message + "\n";
                     ScrollToBottom(richTextBox1);
-                    SendSound();    
+                    SendSound();
+                    if (Form1.ActiveForm.Activated)
+                    {
+                        deleteLast.Enabled = true;
+                    }
                 }
                
                 textMessage.Clear();
@@ -266,20 +280,34 @@ namespace chat_client
                 text += Environment.NewLine;
             }
 
-            richTextBox1.SelectionStart = richTextBox1.TextLength;
-            richTextBox1.SelectionLength = 0;
+            richTextBox1.Invoke((Action)delegate
+            {
+                richTextBox1.SelectionStart = richTextBox1.TextLength;
+                richTextBox1.SelectionLength = 0;
 
-            richTextBox1.SelectionColor = color;
-            richTextBox1.AppendText(text);
-            richTextBox1.SelectionColor = richTextBox1.ForeColor;
-            ScrollToBottom(richTextBox1);
+                richTextBox1.SelectionColor = color;
+                richTextBox1.AppendText(text);
+                richTextBox1.SelectionColor = richTextBox1.ForeColor;
+                ScrollToBottom(richTextBox1);
+            });
         }
 
         public int AnalyzeReceived(string transmission)
         {
             Image img = null;
             switch (transmission)
-            {    case "***###LOCK###***": 
+            {
+                case "***###ACTIVATED###***":
+                    active = true;
+                    MessageBox.Show("Activated");
+                    return 0;
+                    break;
+                case "***###DEACTIVATED###***":
+                    active = false;
+                    MessageBox.Show("Deactivated");
+                    return 0;
+                    break;
+                case "***###LOCK###***": 
                     pictureBox1.Image = Properties.Resources.yellowlight;
                     label5.Text = "Away";
                     return 0;
@@ -363,14 +391,20 @@ namespace chat_client
 
         public static void ScrollToBottom(RichTextBox MyRichTextBox)
         {
-            SendMessage(MyRichTextBox.Handle, WM_VSCROLL, (IntPtr)SB_PAGEBOTTOM, IntPtr.Zero);
+            MyRichTextBox.Invoke((Action)delegate
+           {
+               SendMessage(MyRichTextBox.Handle, WM_VSCROLL, (IntPtr)SB_PAGEBOTTOM, IntPtr.Zero);
+           });
         }
 
         private void ReceiveEmoticon(Image image)
         {
             AppendText(oHostChat + ": ", Color.Red);
-            richTextBox1.SelectionStart = richTextBox1.Text.Length;
-            richTextBox1.InsertImage(image);
+            richTextBox1.Invoke((Action)delegate
+            {
+                richTextBox1.SelectionStart = richTextBox1.Text.Length;
+                richTextBox1.InsertImage(image);
+            });
             AppendText("", Color.Red, true);
             ScrollToBottom(richTextBox1);
         }
@@ -387,6 +421,7 @@ namespace chat_client
             System.Text.ASCIIEncoding enc = new System.Text.ASCIIEncoding();
             byte[] msg = new byte[1500];
             msg = enc.GetBytes(sendString);
+            theConversation += "Me: "+sendString + "\n";
             sck.Send(msg);
             textMessage.Focus();
         }
@@ -497,10 +532,23 @@ namespace chat_client
 
         private void deleteLast_Click(object sender, EventArgs e)
         {
-            string theText = richTextBox1.Text;
+            string theText = theConversation;
             int where = theText.LastIndexOf(':');
             string deletedText = theText.Remove(where - 2);
             MessageBox.Show(deletedText);
+        
+        }
+
+        private void Form1_Activated(object sender, EventArgs e)
+        {
+            msg = enc.GetBytes("***###ACTIVATED###***");
+            sck.Send(msg);
+        }
+
+        private void Form1_Deactivate(object sender, EventArgs e)
+        {
+            msg = enc.GetBytes("***###DEACTIVATED###***");
+            sck.Send(msg);
         }
     }
 }

@@ -60,8 +60,8 @@ namespace chat_client
             this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.richTextBox1 = new chat_client.ExRichTextBox();
             this.deleteLast = new System.Windows.Forms.Button();
+            this.richTextBox1 = new chat_client.ExRichTextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -344,17 +344,6 @@ namespace chat_client
             this.pictureBox1.TabIndex = 9;
             this.pictureBox1.TabStop = false;
             // 
-            // richTextBox1
-            // 
-            this.richTextBox1.ForeColor = System.Drawing.Color.Green;
-            this.richTextBox1.HiglightColor = chat_client.RtfColor.White;
-            this.richTextBox1.Location = new System.Drawing.Point(30, 166);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(673, 279);
-            this.richTextBox1.TabIndex = 12;
-            this.richTextBox1.Text = "";
-            this.richTextBox1.TextColor = chat_client.RtfColor.Black;
-            // 
             // deleteLast
             // 
             this.deleteLast.BackColor = System.Drawing.Color.Tomato;
@@ -366,6 +355,17 @@ namespace chat_client
             this.deleteLast.Text = "Delete";
             this.deleteLast.UseVisualStyleBackColor = false;
             this.deleteLast.Click += new System.EventHandler(this.deleteLast_Click);
+            // 
+            // richTextBox1
+            // 
+            this.richTextBox1.ForeColor = System.Drawing.Color.Green;
+            this.richTextBox1.HiglightColor = chat_client.RtfColor.White;
+            this.richTextBox1.Location = new System.Drawing.Point(30, 166);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(673, 279);
+            this.richTextBox1.TabIndex = 12;
+            this.richTextBox1.Text = "";
+            this.richTextBox1.TextColor = chat_client.RtfColor.Black;
             // 
             // Form1
             // 
@@ -395,6 +395,8 @@ namespace chat_client
             this.Controls.Add(this.groupBox1);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Activated += new System.EventHandler(this.Form1_Activated);
+            this.Deactivate += new System.EventHandler(this.Form1_Deactivate);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
