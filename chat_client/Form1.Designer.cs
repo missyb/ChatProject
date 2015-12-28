@@ -38,6 +38,7 @@ namespace chat_client
             this.textLocalPort = new System.Windows.Forms.TextBox();
             this.textLocalIP = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.textFriendPort = new System.Windows.Forms.TextBox();
@@ -46,7 +47,6 @@ namespace chat_client
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
-            this.richTextBox1 = new chat_client.ExRichTextBox();
             this.button14 = new System.Windows.Forms.Button();
             this.button13 = new System.Windows.Forms.Button();
             this.button12 = new System.Windows.Forms.Button();
@@ -60,6 +60,7 @@ namespace chat_client
             this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.richTextBox1 = new chat_client.ExRichTextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -112,6 +113,7 @@ namespace chat_client
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.comboBox1);
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.textFriendPort);
@@ -122,6 +124,14 @@ namespace chat_client
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "groupBox2";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(113, 28);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(167, 21);
+            this.comboBox1.TabIndex = 2;
             // 
             // label4
             // 
@@ -146,21 +156,21 @@ namespace chat_client
             this.textFriendPort.Location = new System.Drawing.Point(113, 57);
             this.textFriendPort.Name = "textFriendPort";
             this.textFriendPort.Size = new System.Drawing.Size(167, 20);
-            this.textFriendPort.TabIndex = 2;
+            this.textFriendPort.TabIndex = 3;
             // 
             // textFriendIP
             // 
             this.textFriendIP.Location = new System.Drawing.Point(113, 28);
             this.textFriendIP.Name = "textFriendIP";
             this.textFriendIP.Size = new System.Drawing.Size(167, 20);
-            this.textFriendIP.TabIndex = 1;
+            this.textFriendIP.TabIndex = 88;
             // 
             // textMessage
             // 
             this.textMessage.Location = new System.Drawing.Point(30, 451);
             this.textMessage.Name = "textMessage";
             this.textMessage.Size = new System.Drawing.Size(673, 20);
-            this.textMessage.TabIndex = 3;
+            this.textMessage.TabIndex = 5;
             this.textMessage.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textMessage_KeyDown);
             // 
             // button1
@@ -169,7 +179,7 @@ namespace chat_client
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 4;
-            this.button1.Text = "Start";
+            this.button1.Text = "Connect";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -178,7 +188,7 @@ namespace chat_client
             this.button2.Location = new System.Drawing.Point(715, 448);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 5;
+            this.button2.TabIndex = 6;
             this.button2.Text = "Send";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
@@ -192,21 +202,10 @@ namespace chat_client
             this.label5.TabIndex = 10;
             this.label5.Text = "label5";
             // 
-            // richTextBox1
-            // 
-            this.richTextBox1.ForeColor = System.Drawing.Color.Green;
-            this.richTextBox1.HiglightColor = chat_client.RtfColor.White;
-            this.richTextBox1.Location = new System.Drawing.Point(30, 166);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(673, 279);
-            this.richTextBox1.TabIndex = 12;
-            this.richTextBox1.Text = "";
-            this.richTextBox1.TextColor = chat_client.RtfColor.Black;
-            // 
             // button14
             // 
             this.button14.Image = global::chat_client.Properties.Resources.slapping;
-            this.button14.Location = new System.Drawing.Point(709, 394);
+            this.button14.Location = new System.Drawing.Point(721, 393);
             this.button14.Name = "button14";
             this.button14.Size = new System.Drawing.Size(60, 39);
             this.button14.TabIndex = 23;
@@ -217,7 +216,7 @@ namespace chat_client
             // button13
             // 
             this.button13.Image = global::chat_client.Properties.Resources.black_eye;
-            this.button13.Location = new System.Drawing.Point(709, 343);
+            this.button13.Location = new System.Drawing.Point(721, 342);
             this.button13.Name = "button13";
             this.button13.Size = new System.Drawing.Size(60, 45);
             this.button13.TabIndex = 22;
@@ -228,7 +227,7 @@ namespace chat_client
             // button12
             // 
             this.button12.Image = global::chat_client.Properties.Resources.ThumbsUp;
-            this.button12.Location = new System.Drawing.Point(742, 310);
+            this.button12.Location = new System.Drawing.Point(754, 309);
             this.button12.Name = "button12";
             this.button12.Size = new System.Drawing.Size(27, 27);
             this.button12.TabIndex = 21;
@@ -239,7 +238,7 @@ namespace chat_client
             // button11
             // 
             this.button11.Image = global::chat_client.Properties.Resources.DevilSmile;
-            this.button11.Location = new System.Drawing.Point(709, 310);
+            this.button11.Location = new System.Drawing.Point(721, 309);
             this.button11.Name = "button11";
             this.button11.Size = new System.Drawing.Size(27, 27);
             this.button11.TabIndex = 20;
@@ -250,7 +249,7 @@ namespace chat_client
             // button10
             // 
             this.button10.Image = global::chat_client.Properties.Resources.poop;
-            this.button10.Location = new System.Drawing.Point(742, 277);
+            this.button10.Location = new System.Drawing.Point(754, 276);
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(27, 27);
             this.button10.TabIndex = 19;
@@ -261,7 +260,7 @@ namespace chat_client
             // button9
             // 
             this.button9.Image = global::chat_client.Properties.Resources.CrySmile;
-            this.button9.Location = new System.Drawing.Point(709, 277);
+            this.button9.Location = new System.Drawing.Point(721, 276);
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(27, 27);
             this.button9.TabIndex = 18;
@@ -272,7 +271,7 @@ namespace chat_client
             // button8
             // 
             this.button8.Image = global::chat_client.Properties.Resources.ConfusedSmile;
-            this.button8.Location = new System.Drawing.Point(742, 244);
+            this.button8.Location = new System.Drawing.Point(754, 243);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(27, 27);
             this.button8.TabIndex = 17;
@@ -283,7 +282,7 @@ namespace chat_client
             // button7
             // 
             this.button7.Image = global::chat_client.Properties.Resources.BrokenHeart;
-            this.button7.Location = new System.Drawing.Point(709, 244);
+            this.button7.Location = new System.Drawing.Point(721, 243);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(27, 27);
             this.button7.TabIndex = 16;
@@ -294,7 +293,7 @@ namespace chat_client
             // button6
             // 
             this.button6.Image = global::chat_client.Properties.Resources.Beer;
-            this.button6.Location = new System.Drawing.Point(742, 211);
+            this.button6.Location = new System.Drawing.Point(754, 210);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(27, 27);
             this.button6.TabIndex = 15;
@@ -305,7 +304,7 @@ namespace chat_client
             // button5
             // 
             this.button5.Image = global::chat_client.Properties.Resources.AngrySmile;
-            this.button5.Location = new System.Drawing.Point(709, 211);
+            this.button5.Location = new System.Drawing.Point(721, 210);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(27, 27);
             this.button5.TabIndex = 14;
@@ -316,7 +315,7 @@ namespace chat_client
             // button4
             // 
             this.button4.Image = global::chat_client.Properties.Resources.AngelSmile;
-            this.button4.Location = new System.Drawing.Point(742, 178);
+            this.button4.Location = new System.Drawing.Point(754, 177);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(27, 27);
             this.button4.TabIndex = 13;
@@ -327,7 +326,7 @@ namespace chat_client
             // button3
             // 
             this.button3.Image = global::chat_client.Properties.Resources.EmbarassedSmile;
-            this.button3.Location = new System.Drawing.Point(709, 178);
+            this.button3.Location = new System.Drawing.Point(721, 177);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(27, 27);
             this.button3.TabIndex = 11;
@@ -343,6 +342,17 @@ namespace chat_client
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 9;
             this.pictureBox1.TabStop = false;
+            // 
+            // richTextBox1
+            // 
+            this.richTextBox1.ForeColor = System.Drawing.Color.Green;
+            this.richTextBox1.HiglightColor = chat_client.RtfColor.White;
+            this.richTextBox1.Location = new System.Drawing.Point(30, 166);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(673, 279);
+            this.richTextBox1.TabIndex = 12;
+            this.richTextBox1.Text = "";
+            this.richTextBox1.TextColor = chat_client.RtfColor.Black;
             // 
             // Form1
             // 
@@ -411,6 +421,7 @@ namespace chat_client
         private System.Windows.Forms.Button button12;
         private System.Windows.Forms.Button button13;
         private System.Windows.Forms.Button button14;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }
 

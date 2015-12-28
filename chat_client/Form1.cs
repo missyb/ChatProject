@@ -20,7 +20,7 @@ using Microsoft.Win32;
 
 
 namespace chat_client
-{
+{                                                     
     public partial class Form1 : Form
     {
         private Socket sck;
@@ -33,7 +33,7 @@ namespace chat_client
         private const int SB_PAGEBOTTOM = 7;
 
         public Form1()
-        {
+        {                           
             InitializeComponent();
            SystemEvents.SessionSwitch +=
                          new SessionSwitchEventHandler(SystemEvents_SessionSwitch);
@@ -59,18 +59,19 @@ namespace chat_client
                 groupBox2.Text = "Jesse";
                 oHostName = "JSANCHEZ-LT";
                 oHostChat = "Jesse";
-                lHostChat = "Missy";
+                lHostChat = "Missy";               
             }
 
             try
             {
-                textFriendIP.Text = GetRemoteIPByName(oHostName);
+                comboBox1.Items.Add(GetRemoteIPByName(oHostName));
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
-                textFriendIP.Text = "127.0.0.1";
+                comboBox1.Items.Add("127.0.0.1");
             }
+            comboBox1.SelectedIndex = 0;
             textLocalPort.Text = "80";
             textFriendPort.Text = "80";
             button1.Focus();
@@ -105,7 +106,8 @@ namespace chat_client
                 {
                     pictureBox1.Image = Properties.Resources.greenlight2;
                     label5.Text = "Online";
-                    return ip.ToString();
+                    comboBox1.Items.Add(ip.ToString());
+                    ipAddress = ip.ToString();
                 }
             }
             return ipAddress;
@@ -120,7 +122,7 @@ namespace chat_client
                 if (size > 0)
                 {
                     byte[] receivedData = new byte[1464];
-                    receivedData = (byte[]) aResult.AsyncState;
+                    receivedData = (byte[])aResult.AsyncState;
 
                     ASCIIEncoding eEncoding = new ASCIIEncoding();
                     string receivedMessage = eEncoding.GetString(receivedData);
@@ -151,17 +153,20 @@ namespace chat_client
         {
             try
             {
+                sck = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+                sck.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
+
                 epLocal = new IPEndPoint(IPAddress.Parse(textLocalIP.Text), Convert.ToInt32(textLocalPort.Text));
                 sck.Bind(epLocal);
 
-                epRemote = new IPEndPoint(IPAddress.Parse(textFriendIP.Text), Convert.ToInt32(textFriendPort.Text));
+                epRemote = new IPEndPoint(IPAddress.Parse(comboBox1.Text), Convert.ToInt32(textFriendPort.Text));
                 sck.Connect(epRemote);
 
                 byte[] buffer = new byte[1500];
                 sck.BeginReceiveFrom(buffer, 0, buffer.Length, SocketFlags.None, ref epRemote,
                     new AsyncCallback(MessageCallBack), buffer);
 
-                button1.Text = "Connected";
+               // button1.Text = "Connected";
                 //button1.Enabled = false;
                 button2.Enabled = true;
                 textMessage.Focus();
@@ -240,7 +245,7 @@ namespace chat_client
                     msg = enc.GetBytes("***###UNLOCK###***");
                     sck.Send(msg);
                     break;
-                case SessionSwitchReason.ConsoleDisconnect:
+                case SessionSwitchReason.SessionLogoff:
                     msg = enc.GetBytes("***###OFF###***");
                     sck.Send(msg);
                     break;
@@ -248,8 +253,8 @@ namespace chat_client
             }
         }
 
-       
-       public void AppendText(string text, Color color, bool AddNewLine = false)
+
+        public void AppendText(string text, Color color, bool AddNewLine = false)
         {
             if (AddNewLine)
             {
@@ -258,7 +263,7 @@ namespace chat_client
 
             richTextBox1.SelectionStart = richTextBox1.TextLength;
             richTextBox1.SelectionLength = 0;
-            
+
             richTextBox1.SelectionColor = color;
             richTextBox1.AppendText(text);
             richTextBox1.SelectionColor = richTextBox1.ForeColor;
@@ -363,7 +368,6 @@ namespace chat_client
             richTextBox1.InsertImage(image);
             AppendText("", Color.Red, true);
             ScrollToBottom(richTextBox1);
-            
         }
 
         private void SendEmoticon(Image image, string sendString)
@@ -379,9 +383,10 @@ namespace chat_client
             byte[] msg = new byte[1500];
             msg = enc.GetBytes(sendString);
             sck.Send(msg);
+            textMessage.Focus();
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void button3_Click(object sender, EventArgs e)                                                                         
         {
             Image img = Properties.Resources.EmbarassedSmile;
             string name = button3.Tag.ToString();
