@@ -61,6 +61,7 @@ namespace chat_client
             this.button3 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.richTextBox1 = new chat_client.ExRichTextBox();
+            this.deleteLast = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -354,11 +355,24 @@ namespace chat_client
             this.richTextBox1.Text = "";
             this.richTextBox1.TextColor = chat_client.RtfColor.Black;
             // 
+            // deleteLast
+            // 
+            this.deleteLast.BackColor = System.Drawing.Color.Tomato;
+            this.deleteLast.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.deleteLast.Location = new System.Drawing.Point(542, 393);
+            this.deleteLast.Name = "deleteLast";
+            this.deleteLast.Size = new System.Drawing.Size(146, 45);
+            this.deleteLast.TabIndex = 24;
+            this.deleteLast.Text = "Delete";
+            this.deleteLast.UseVisualStyleBackColor = false;
+            this.deleteLast.Click += new System.EventHandler(this.deleteLast_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(802, 490);
+            this.Controls.Add(this.deleteLast);
             this.Controls.Add(this.button14);
             this.Controls.Add(this.button13);
             this.Controls.Add(this.button12);
@@ -381,6 +395,7 @@ namespace chat_client
             this.Controls.Add(this.groupBox1);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -422,6 +437,7 @@ namespace chat_client
         private System.Windows.Forms.Button button13;
         private System.Windows.Forms.Button button14;
         private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Button deleteLast;
     }
 }
 

@@ -153,6 +153,11 @@ namespace chat_client
         {
             try
             {
+                if (sck.Connected == true)
+                {
+                    //sck.Disconnect(true);
+                    sck.Close();
+                }
                 sck = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
                 sck.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
 
@@ -481,6 +486,21 @@ namespace chat_client
             string name = button14.Tag.ToString();
             string sendString = "***###" + name + "###***";
             SendEmoticon(img, sendString);
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+           // sck.Disconnect(false);
+            sck.Close();
+            sck.Dispose();
+        }
+
+        private void deleteLast_Click(object sender, EventArgs e)
+        {
+            string theText = richTextBox1.Text;
+            int where = theText.LastIndexOf(':');
+            string deletedText = theText.Remove(where - 2);
+            MessageBox.Show(deletedText);
         }
     }
 }
