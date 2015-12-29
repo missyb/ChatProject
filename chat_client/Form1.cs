@@ -26,13 +26,16 @@ namespace chat_client
         private Socket sck;
         private EndPoint epLocal, epRemote;
         private string lHostName, oHostName, lHostChat, oHostChat;
-        public string theConversation;
-        public bool active, connectedToSocket = false;
+        //public string[] theConversation;
+       // public Dictionary<string, int> theConversation = new Dictionary<string, int>();
+        public List<Tuple<string, int>> theConversation = new List<Tuple<string, int>>();
+        public bool active = false, connectedToSocket = false, firstMessageSent = false;
         
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         private static extern int SendMessage(IntPtr hWnd, int wMsg, IntPtr wParam, IntPtr lParam);
         private const int WM_VSCROLL = 277;
         private const int SB_PAGEBOTTOM = 7;
+        int typeOfReload = 0;
 
         public Form1()
         {                           
@@ -127,24 +130,31 @@ namespace chat_client
                     receivedData = (byte[])aResult.AsyncState;
 
                     ASCIIEncoding eEncoding = new ASCIIEncoding();
-                    string receivedMessage = eEncoding.GetString(receivedData);
-                                        
-                    if (AnalyzeReceived(receivedMessage.Trim('\0')) == 1) //1 will be acutal message
+                    string receivedMessage = eEncoding.GetString(receivedData).Trim('\0');
+                    
+                    if(receivedMessage.Equals("***###!@#$%^&*()START###***"))
+                    {
+                        Clear_Conversation();
+                        typeOfReload = 1;
+                    }
+                    else if (receivedMessage.Equals("***###!@#$%^&*()END###***"))
+                    {
+                        typeOfReload = 0;
+                    }
+                    else if (receivedMessage.StartsWith("***###!@#$%^&*()"))
+                    {
+                        AnalyzeNewConversation(receivedMessage);
+                    }
+                    else if (AnalyzeReceived(receivedMessage.Trim('\0')) == 1) //1 will be acutal message
                     {
                         string message = oHostChat + ": " + receivedMessage.Trim('\0');
-                        AppendText(message, Color.Red, true);
-                        AppendText("", Color.Azure, true);
-                        theConversation += message + "\n";
-                        ScrollToBottom(richTextBox1);
-                        ReceiveSound();
-                        this.Invoke((Action)delegate
-                        {
-                            FlashWindow.Flash(this);
-                        });
+                        firstMessageSent = true;
+                        Put_Text_In_RichTextBox1(message, typeOfReload);
                     }
                     else
                     {
-                        theConversation += oHostChat+": "+ receivedMessage.Trim('\0')+"\n";               //the ghost conversation so you can delete
+                        theConversation.Add(new Tuple<string, int>(oHostChat+": "+ receivedMessage.Trim('\0'), 1));               //the ghost conversation with a 1 because you can't delete received messages
+                        Display_Dictionary();
                     }
                 }
                 byte[] buffer = new byte[1500];
@@ -157,14 +167,15 @@ namespace chat_client
                 //throw;
             }
         }
-
-        private void button1_Click(object sender, EventArgs e)
+                
+        private void Connect_Button_Click(object sender, EventArgs e)
         {
             try
             {
                 if (sck.Connected == true)
                 {
                     //sck.Disconnect(true);
+                    //sck.Dispose();
                     sck.Close();
                 }
                 sck = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
@@ -185,6 +196,7 @@ namespace chat_client
                 button2.Enabled = true;
                 textMessage.Focus();
                 connectedToSocket = true;
+                active = true;
             }
             catch (Exception ex)
             {
@@ -192,7 +204,7 @@ namespace chat_client
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void Send_Button_Click(object sender, EventArgs e)
         {
             try
             {
@@ -208,13 +220,24 @@ namespace chat_client
                 {
                     string message = "Me: " + textMessage.Text;
                     AppendText(message, Color.Blue, true);
-                    theConversation += message + "\n";
+                    //theConversation += message + "\n";   
+                    theConversation.Add(new Tuple<string, int>(message, 0));
                     ScrollToBottom(richTextBox1);
                     SendSound();
-                    //if (Form1.ActiveForm.Activated)
-                    //{
-                    //    deleteLast.Enabled = true;
-                    //}
+                     if(label6.Text == "Activated")
+                        {
+                            Change_All_To_Read();
+                        }
+
+                     label6.Invoke((Action)delegate
+                     {
+                         if (label6.Text == "Deactivated")
+                             deleteLast.Visible = true;
+                         else if (label6.Text == "Activated")
+                             deleteLast.Visible = false;
+                     });
+
+                    Display_Dictionary();
                 }
                
                 textMessage.Clear();
@@ -300,12 +323,21 @@ namespace chat_client
             {
                 case "***###ACTIVATED###***":
                     active = true;
-                    label6.Text = "Activated";
+                    label6.Invoke((Action)delegate
+                    {
+                        label6.Text = "Activated";
+                    });
+
+                    if (deleteLast.Visible == true)
+                    { deleteLast.Visible = false; }
                     return 0;
                     break;
                 case "***###DEACTIVATED###***":
                     active = false;
-                    label6.Text = "Deactivated";
+                    label6.Invoke((Action)delegate
+                    {
+                        label6.Text = "Deactivated";
+                    });
                     return 0;
                     break;
                 case "***###LOCK###***": 
@@ -407,6 +439,7 @@ namespace chat_client
                 richTextBox1.InsertImage(image);
             });
             AppendText("", Color.Red, true);
+            ReceiveSound();
             ScrollToBottom(richTextBox1);
         }
 
@@ -422,9 +455,21 @@ namespace chat_client
             System.Text.ASCIIEncoding enc = new System.Text.ASCIIEncoding();
             byte[] msg = new byte[1500];
             msg = enc.GetBytes(sendString);
-            theConversation += "Me: "+sendString + "\n";
+            theConversation.Add(new Tuple<string, int>("Me: "+sendString + "\n", 0));
             sck.Send(msg);
+            SendSound();
             textMessage.Focus();
+           
+            if (label6.Text == "Deactivated")
+                  deleteLast.Visible = true;
+            else if (label6.Text == "Activated")
+                  deleteLast.Visible = false;
+                       
+            if (label6.Text == "Activated")
+            {
+                Change_All_To_Read();
+            }
+            Display_Dictionary();
         }
 
         private void button3_Click(object sender, EventArgs e)                                                                         
@@ -527,39 +572,188 @@ namespace chat_client
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
            // sck.Disconnect(false);
-            sck.Close();
-            sck.Dispose();
+           // sck.Close();
+           // sck.Dispose();
         }
 
         private void deleteLast_Click(object sender, EventArgs e)
         {
-            string theText = theConversation;
-            int where = theText.LastIndexOf(':');
-            string deletedText = theText.Remove(where - 2);
-            MessageBox.Show(deletedText);
+            theConversation.RemoveAt(theConversation.Count - 1);
+            listBox2.Items.Clear();  
+          
+            for (int i=0; i<theConversation.Count; i++)
+               {
+                   listBox2.Items.Add(theConversation[i].ToString());
+               }
+
+            Reload_Own_Text();
+            Send_Reload_Text();
+            deleteLast.Visible = false;
         
         }
 
         private void Form1_Activated(object sender, EventArgs e)
         {
-            if (connectedToSocket == true)
+            if (connectedToSocket == true && firstMessageSent == true)
             {
+                active = true;
                 System.Text.ASCIIEncoding enc = new System.Text.ASCIIEncoding();
                 byte[] msg = new byte[1500];
                 msg = enc.GetBytes("***###ACTIVATED###***");
                 sck.Send(msg);
+                // Change_All_To_Read(); //Change all the messages to read because they have been seen
+                //Display_Dictionary();
             }
         }
 
         private void Form1_Deactivate(object sender, EventArgs e)
         {
-            if (connectedToSocket == true)
+            if (connectedToSocket == true && firstMessageSent == true)
             {
+                active = false;
                 System.Text.ASCIIEncoding enc = new System.Text.ASCIIEncoding();
                 byte[] msg = new byte[1500];
                 msg = enc.GetBytes("***###DEACTIVATED###***");
                 sck.Send(msg);
             }
+        }
+
+        private void Change_All_To_Read()
+        {
+            var myStringList = theConversation.Select(t => t.Item1).ToList();
+            foreach (var tMessage in myStringList)
+            {
+                var existing = theConversation.FirstOrDefault(t => t.Item1 == tMessage);
+                if (existing != null)
+                {
+                    //update
+                    theConversation[theConversation.IndexOf(existing)] = new Tuple<string, int>(existing.Item1, 1);
+                }                
+            }
+            
+        }
+        
+        private void Display_Dictionary()
+        {
+            listBox1.Invoke((Action)delegate
+           {
+               listBox1.Items.Clear();
+               var myStringList = theConversation.Select(t => t.Item2).ToList();
+               foreach (var tMessage in myStringList)
+               {
+                   listBox1.Items.Add(tMessage.ToString());
+               }
+           });
+        }
+
+        private void label6_TextChanged(object sender, EventArgs e)
+        {
+            if(label6.Text == "Activated")
+            {
+                deleteLast.Visible = false;
+                Change_All_To_Read();
+                Display_Dictionary();
+            }
+
+        }
+       
+        private void Send_Reload_Text()       //Will send the new conversation after something has been deleted so that the other side can analyze and display new conversation.
+        {
+            System.Text.ASCIIEncoding enc = new System.Text.ASCIIEncoding();
+            byte[] msg = new byte[1500];
+            
+            msg = enc.GetBytes("***###!@#$%^&*()START###***");  //this will clear the other richTextBox1 to begin reloading the conversation
+            sck.Send(msg);
+
+            for (int i = 0; i < theConversation.Count; i++)
+            {
+                msg = enc.GetBytes("***###!@#$%^&*()" + theConversation[i].Item1.ToString());
+                sck.Send(msg);
+            }
+
+            msg = enc.GetBytes("***###!@#$%^&*()END###***");  //this will clear the bool and continue adding stuff to theConversation...this is so duplicates won't happen
+            sck.Send(msg);
+            //msg = enc.GetBytes();
+        }
+
+        private void Clear_Conversation()  //Clears out the richTextBox to prepare it for the new conversation coming.
+        {   
+            richTextBox1.Invoke((Action)delegate
+                {
+                 richTextBox1.Clear();
+                });
+        }
+
+        private void Reload_Own_Text()
+        {
+            richTextBox1.Clear();
+           for (int i = 0; i < theConversation.Count; i++)
+            {
+                if (!theConversation[i].Item1.ToString().Contains("***###ACTIVATED###***") && !theConversation[i].Item1.ToString().Contains("***###DEACTIVATED###***")
+                   && !theConversation[i].Item1.ToString().Contains("***###LOCK###***") && !theConversation[i].Item1.ToString().Contains("***###UNLOCK###***"))
+                {
+                    if (AnalyzeReceived(theConversation[i].Item1.ToString()) == 1) //1 will be acutal message
+                    {
+                        Put_Text_In_RichTextBox1(theConversation[i].Item1.ToString(), 2);
+                    }
+                }                            
+            }
+
+        }
+        
+        private void AnalyzeNewConversation(string receivedMessage)
+        {
+            receivedMessage = receivedMessage.Replace("***###!@#$%^&*()", "");
+            if(!receivedMessage.Contains("***###ACTIVATED###***") && !receivedMessage.Contains("***###DEACTIVATED###***") && !receivedMessage.Contains("***###LOCK###***") 
+                && !receivedMessage.Contains("***###UNLOCK###***" ))
+            {
+                 if (AnalyzeReceived(receivedMessage) == 1) //1 will be acutal message
+                 {
+                     Put_Text_In_RichTextBox1(receivedMessage, typeOfReload);
+                 }
+            }
+        }
+
+        private void Put_Text_In_RichTextBox1(string message, int Reload) //0 = not reload, 1 = sentReload, 2 = ownReload
+        {
+            if (Reload == 1)
+            {            
+                if(message.StartsWith("Me: "))
+                {
+                    message = message.Remove(0, 2);
+                    message = oHostChat + ": "+message;
+                }
+                else if(message.StartsWith(oHostChat+": "))
+                {
+                    int letters = oHostChat.Length;
+                    message = message.Remove(0, letters + 1);
+                    message = "Me: "+message;
+                }
+            }
+            if(Reload == 0)
+            {
+                theConversation.Add(new Tuple<string, int>(message, 1));    //1 cause you can never change received messages
+            }
+           if (message.StartsWith("Me: "))
+            {
+                AppendText(message, Color.Blue, true);
+            }
+            else
+            {
+                AppendText(message, Color.Red, true);
+            }
+            ScrollToBottom(richTextBox1);
+            ReceiveSound();
+            this.Invoke((Action)delegate
+            {
+                FlashWindow.Flash(this);
+            });
+            //textMessage.Invoke((Action)delegate
+            //{
+            //    textMessage.Focus();                  //when invoked, this causes the window to seem active, if not invoked, it works fine, but cannot debug
+            //});
+            
+            Display_Dictionary();                   //only for debugging
         }
     }
 }

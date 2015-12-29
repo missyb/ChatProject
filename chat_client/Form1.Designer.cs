@@ -61,8 +61,10 @@ namespace chat_client
             this.button3 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.deleteLast = new System.Windows.Forms.Button();
-            this.richTextBox1 = new chat_client.ExRichTextBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.listBox2 = new System.Windows.Forms.ListBox();
+            this.richTextBox1 = new chat_client.ExRichTextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -183,7 +185,7 @@ namespace chat_client
             this.button1.TabIndex = 4;
             this.button1.Text = "Connect";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new System.EventHandler(this.Connect_Button_Click);
             // 
             // button2
             // 
@@ -193,7 +195,7 @@ namespace chat_client
             this.button2.TabIndex = 6;
             this.button2.Text = "Send";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.button2.Click += new System.EventHandler(this.Send_Button_Click);
             // 
             // label5
             // 
@@ -349,13 +351,41 @@ namespace chat_client
             // 
             this.deleteLast.BackColor = System.Drawing.Color.Tomato;
             this.deleteLast.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.deleteLast.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.deleteLast.Location = new System.Drawing.Point(542, 393);
             this.deleteLast.Name = "deleteLast";
             this.deleteLast.Size = new System.Drawing.Size(146, 45);
             this.deleteLast.TabIndex = 24;
-            this.deleteLast.Text = "Delete";
+            this.deleteLast.Text = "Delete Last";
             this.deleteLast.UseVisualStyleBackColor = false;
+            this.deleteLast.Visible = false;
             this.deleteLast.Click += new System.EventHandler(this.deleteLast_Click);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(218, 132);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(35, 13);
+            this.label6.TabIndex = 25;
+            this.label6.Text = "label6";
+            this.label6.TextChanged += new System.EventHandler(this.label6_TextChanged);
+            // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.Location = new System.Drawing.Point(327, 0);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(63, 95);
+            this.listBox1.TabIndex = 26;
+            // 
+            // listBox2
+            // 
+            this.listBox2.FormattingEnabled = true;
+            this.listBox2.Location = new System.Drawing.Point(259, 104);
+            this.listBox2.Name = "listBox2";
+            this.listBox2.Size = new System.Drawing.Size(541, 56);
+            this.listBox2.TabIndex = 27;
             // 
             // richTextBox1
             // 
@@ -368,20 +398,13 @@ namespace chat_client
             this.richTextBox1.Text = "";
             this.richTextBox1.TextColor = chat_client.RtfColor.Black;
             // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(351, 132);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(35, 13);
-            this.label6.TabIndex = 25;
-            this.label6.Text = "label6";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(802, 490);
+            this.Controls.Add(this.listBox2);
+            this.Controls.Add(this.listBox1);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.deleteLast);
             this.Controls.Add(this.button14);
@@ -452,6 +475,8 @@ namespace chat_client
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Button deleteLast;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox listBox2;
     }
 }
 
