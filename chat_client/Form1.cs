@@ -720,12 +720,12 @@ namespace chat_client
             {            
                 if(message.StartsWith("Me: "))
                 {
-                    message = message.Remove(0, 2);
+                    message = message.Remove(0, 4);
                     message = oHostChat + ": "+message;
                 }
-                else if(message.StartsWith(oHostChat+": "))
+                else if(message.StartsWith(lHostChat+": "))
                 {
-                    int letters = oHostChat.Length;
+                    int letters = lHostChat.Length;
                     message = message.Remove(0, letters + 1);
                     message = "Me: "+message;
                 }
