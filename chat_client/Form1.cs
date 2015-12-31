@@ -30,6 +30,7 @@ namespace chat_client
        // public Dictionary<string, int> theConversation = new Dictionary<string, int>();
         public List<Tuple<string, int>> theConversation = new List<Tuple<string, int>>();
         public bool active = false, connectedToSocket = false, firstMessageSent = false;
+        public List<TMessage> conversationList = new List<TMessage>();
         
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         private static extern int SendMessage(IntPtr hWnd, int wMsg, IntPtr wParam, IntPtr lParam);
@@ -131,21 +132,23 @@ namespace chat_client
 
                     ASCIIEncoding eEncoding = new ASCIIEncoding();
                     string receivedMessage = eEncoding.GetString(receivedData).Trim('\0');
-                    
-                    if(receivedMessage.Equals("***###!@#$%^&*()START###***"))
-                    {
-                        Clear_Conversation();
-                        typeOfReload = 1;
-                    }
-                    else if (receivedMessage.Equals("***###!@#$%^&*()END###***"))
-                    {
-                        typeOfReload = 0;
-                    }
-                    else if (receivedMessage.StartsWith("***###!@#$%^&*()"))
-                    {
-                        AnalyzeNewConversation(receivedMessage);
-                    }
-                    else if (AnalyzeReceived(receivedMessage.Trim('\0')) == 1) //1 will be acutal message
+
+                    AnalyzeMessage(receivedMessage);
+
+                    //if(receivedMessage.Equals("***###!@#$%^&*()START###***"))
+                    //{
+                    //    Clear_Conversation();
+                    //    typeOfReload = 1;
+                    //}
+                    //else if (receivedMessage.Equals("***###!@#$%^&*()END###***"))
+                    //{
+                    //    typeOfReload = 0;
+                    //}
+                    //else if (receivedMessage.StartsWith("***###!@#$%^&*()"))
+                    //{
+                    //    AnalyzeNewConversation(receivedMessage);
+                    //}
+                   if (AnalyzeReceived(receivedMessage.Trim('\0')) == 1) //1 will be acutal message
                     {
                         string message = oHostChat + ": " + receivedMessage.Trim('\0');
                         firstMessageSent = true;
@@ -167,7 +170,32 @@ namespace chat_client
                 //throw;
             }
         }
-                
+
+        private void AnalyzeMessage(string message)
+        {
+            string theHeader = message.Substring(0, 4);
+            AnalyzeHeader(theHeader);
+        }
+        private int AnalyzeHeader(string header)
+        {
+            switch(Int32.TryParse(header))
+            {
+                case headerCodes.messageID.ToString:
+                    return 0;
+                case headerCodes.message:
+                    return 1;
+                case headerCodes.sender:
+                    return 2;
+                case headerCodes.emoticon:
+                    return 3;
+                case headerCodes.deleteID:
+                    return 4;
+                case headerCodes.action:
+                    return 5;
+                default:
+                    return 1;
+            }
+        }
         private void Connect_Button_Click(object sender, EventArgs e)
         {
             try
@@ -207,10 +235,17 @@ namespace chat_client
         private void Send_Button_Click(object sender, EventArgs e)
         {
             try
-            {
+            {                             
+               
+               TMessage sentMessage = new TMessage();
+               sentMessage.header = "0001";
+               sentMessage.msg = textMessage.Text;
+               sentMessage.read = false;
+               sentMessage.sender = "Me";
+
                System.Text.ASCIIEncoding enc = new System.Text.ASCIIEncoding();
                byte[] msg = new byte[1500];
-                msg = enc.GetBytes(textMessage.Text);
+               msg = enc.GetBytes(sentMessage.header + sentMessage.msgID + sentMessage.msg);
 
                 sck.Send(msg);
 
@@ -218,10 +253,10 @@ namespace chat_client
                 
                 if (size > 0)
                 {
-                    string message = "Me: " + textMessage.Text;
+                    string message = sentMessage.sender + ": " + sentMessage.msg; 
                     AppendText(message, Color.Blue, true);
-                    //theConversation += message + "\n";   
-                    theConversation.Add(new Tuple<string, int>(message, 0));
+                   // theConversation.Add(new Tuple<string, int>(message, 0));     //maybe won't need this anymore
+                    conversationList.Add(sentMessage);      //adding the object to the list of messages in conversation
                     ScrollToBottom(richTextBox1);
                     SendSound();
                      if(label6.Text == "Activated")
@@ -445,17 +480,15 @@ namespace chat_client
 
         private void SendEmoticon(Image image, string sendString)
         {
-            AppendText("Me :", Color.Blue, false);
-            Clipboard.SetImage(image);
-            richTextBox1.Paste();
-            Clipboard.Clear();
+            AppendText("Me :", Color.Blue, false);                                                                             
+            richTextBox1.InsertImage(image);
             AppendText("", Color.Blue, true);
             ScrollToBottom(richTextBox1);
 
             System.Text.ASCIIEncoding enc = new System.Text.ASCIIEncoding();
             byte[] msg = new byte[1500];
             msg = enc.GetBytes(sendString);
-            theConversation.Add(new Tuple<string, int>("Me: "+sendString + "\n", 0));
+            theConversation.Add(new Tuple<string, int>("Me: "+sendString, 0));
             sck.Send(msg);
             SendSound();
             textMessage.Focus();
@@ -620,28 +653,32 @@ namespace chat_client
 
         private void Change_All_To_Read()
         {
-            var myStringList = theConversation.Select(t => t.Item1).ToList();
-            foreach (var tMessage in myStringList)
+            //var myStringList = theConversation.Select(t => t.Item1).ToList();
+            //foreach (var tMessage in myStringList)
+            //{
+            //    var existing = theConversation.FirstOrDefault(t => t.Item1 == tMessage);
+            //    if (existing != null)
+            //    {
+            //        //update
+            //        theConversation[theConversation.IndexOf(existing)] = new Tuple<string, int>(existing.Item1, 1);
+            //    }                
+            //}
+
+            foreach(var tMessage in conversationList)
             {
-                var existing = theConversation.FirstOrDefault(t => t.Item1 == tMessage);
-                if (existing != null)
-                {
-                    //update
-                    theConversation[theConversation.IndexOf(existing)] = new Tuple<string, int>(existing.Item1, 1);
-                }                
+                tMessage.read = true;
             }
             
         }
         
         private void Display_Dictionary()
         {
-            listBox1.Invoke((Action)delegate
+            listBox2.Invoke((Action)delegate
            {
-               listBox1.Items.Clear();
-               var myStringList = theConversation.Select(t => t.Item2).ToList();
-               foreach (var tMessage in myStringList)
+               listBox2.Items.Clear();
+               foreach(var tMessage in conversationList)
                {
-                   listBox1.Items.Add(tMessage.ToString());
+                   listBox2.Items.Add(tMessage.header + " " + tMessage.msgID + " " + tMessage.msg);
                }
            });
         }
@@ -671,7 +708,7 @@ namespace chat_client
                 sck.Send(msg);
             }
 
-            msg = enc.GetBytes("***###!@#$%^&*()END###***");  //this will clear the bool and continue adding stuff to theConversation...this is so duplicates won't happen
+            msg = enc.GetBytes("***###!@#$%^&*()END###***");  //this will clear the var and continue adding stuff to theConversation...this is so duplicates won't happen in theConversation<>
             sck.Send(msg);
             //msg = enc.GetBytes();
         }
@@ -684,7 +721,7 @@ namespace chat_client
                 });
         }
 
-        private void Reload_Own_Text()
+        private void Reload_Own_Text()      //Reload the text in my own richTextBox1 with 
         {
             richTextBox1.Clear();
            for (int i = 0; i < theConversation.Count; i++)
@@ -692,6 +729,9 @@ namespace chat_client
                 if (!theConversation[i].Item1.ToString().Contains("***###ACTIVATED###***") && !theConversation[i].Item1.ToString().Contains("***###DEACTIVATED###***")
                    && !theConversation[i].Item1.ToString().Contains("***###LOCK###***") && !theConversation[i].Item1.ToString().Contains("***###UNLOCK###***"))
                 {
+                   
+                     
+                    
                     if (AnalyzeReceived(theConversation[i].Item1.ToString()) == 1) //1 will be acutal message
                     {
                         Put_Text_In_RichTextBox1(theConversation[i].Item1.ToString(), 2);
