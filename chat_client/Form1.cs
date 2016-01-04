@@ -31,6 +31,7 @@ namespace chat_client
         public List<Tuple<string, int>> theConversation = new List<Tuple<string, int>>();
         public bool active = false, connectedToSocket = false, firstMessageSent = false;
         public List<TMessage> conversationList = new List<TMessage>();
+        //public List<string> receivedMessages = new List<string>();
         
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         private static extern int SendMessage(IntPtr hWnd, int wMsg, IntPtr wParam, IntPtr lParam);
@@ -134,6 +135,7 @@ namespace chat_client
                     string receivedMessage = eEncoding.GetString(receivedData).Trim('\0');
 
                     AnalyzeMessage(receivedMessage);
+                    Display_Dictionary();
 
                     //if(receivedMessage.Equals("***###!@#$%^&*()START###***"))
                     //{
@@ -148,17 +150,17 @@ namespace chat_client
                     //{
                     //    AnalyzeNewConversation(receivedMessage);
                     //}
-                   if (AnalyzeReceived(receivedMessage.Trim('\0')) == 1) //1 will be acutal message
-                    {
-                        string message = oHostChat + ": " + receivedMessage.Trim('\0');
-                        firstMessageSent = true;
-                        Put_Text_In_RichTextBox1(message, typeOfReload);
-                    }
-                    else
-                    {
-                        theConversation.Add(new Tuple<string, int>(oHostChat+": "+ receivedMessage.Trim('\0'), 1));               //the ghost conversation with a 1 because you can't delete received messages
-                        Display_Dictionary();
-                    }
+                //   if (AnalyzeReceived(receivedMessage.Trim('\0')) == 1) //1 will be acutal message
+                //    {
+                //        string message = oHostChat + ": " + receivedMessage.Trim('\0');
+                //        firstMessageSent = true;
+                //        Put_Text_In_RichTextBox1(message, typeOfReload);
+                //    }
+                //    else
+                //    {
+                //        theConversation.Add(new Tuple<string, int>(oHostChat+": "+ receivedMessage.Trim('\0'), 1));               //the ghost conversation with a 1 because you can't delete received messages
+                //        Display_Dictionary();
+                //    }
                 }
                 byte[] buffer = new byte[1500];
                 sck.BeginReceiveFrom(buffer, 0, buffer.Length, SocketFlags.None, ref epRemote,
@@ -174,23 +176,45 @@ namespace chat_client
         private void AnalyzeMessage(string message)
         {
             string theHeader = message.Substring(0, 4);
-            AnalyzeHeader(theHeader);
+            int typeOfMessage = AnalyzeHeader(theHeader);
+            if (typeOfMessage == 1)
+            { ReceiveTextMessage(message); }
+
         }
+
+        private void ReceiveTextMessage(string message)
+        {
+            string tID = message.Substring(4, 36);                      //Get GUID of received message
+
+            TMessage receivedMessage = new TMessage(tID);               //Create the Message Object
+            receivedMessage.header = message.Substring(0, 4);
+            receivedMessage.msg = message.Remove(0, 40);
+            receivedMessage.sender = oHostChat;
+            receivedMessage.read = false;
+
+            AppendText(receivedMessage.sender + ": " + receivedMessage.msg, Color.Red, true);       //Put the message into the RichTextBox
+            conversationList.Add(receivedMessage);                                                 //Add the Object into the Conversation List
+                       
+        }
+
         private int AnalyzeHeader(string header)
         {
-            switch(Int32.TryParse(header))
+            int intHeader;
+            Int32.TryParse(header, out intHeader);
+           
+            switch(intHeader)
             {
-                case headerCodes.messageID.ToString:
+                case (int)headerCodes.messageID:
                     return 0;
-                case headerCodes.message:
+                case (int)headerCodes.message:
                     return 1;
-                case headerCodes.sender:
+                case (int)headerCodes.sender:
                     return 2;
-                case headerCodes.emoticon:
+                case (int)headerCodes.emoticon:
                     return 3;
-                case headerCodes.deleteID:
+                case (int)headerCodes.deleteID:
                     return 4;
-                case headerCodes.action:
+                case (int)headerCodes.action:
                     return 5;
                 default:
                     return 1;

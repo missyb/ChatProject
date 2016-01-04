@@ -22,6 +22,10 @@ namespace chat_client
        {
            msgID = Guid.NewGuid().ToString();
        }
+       public TMessage(string theGUID)
+       {
+           msgID = theGUID;
+       }
                  
        public string msg { get; set; }
 
