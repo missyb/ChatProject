@@ -6,6 +6,8 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
+using System.Windows.Documents;
+//using System.Windows.Controls;
 
 namespace chat_client
 {

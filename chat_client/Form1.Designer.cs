@@ -62,7 +62,6 @@ namespace chat_client
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.deleteLast = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
-            this.listBox1 = new System.Windows.Forms.ListBox();
             this.listBox2 = new System.Windows.Forms.ListBox();
             this.richTextBox1 = new chat_client.ExRichTextBox();
             this.groupBox1.SuspendLayout();
@@ -364,27 +363,19 @@ namespace chat_client
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(218, 132);
+            this.label6.Location = new System.Drawing.Point(194, 132);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(35, 13);
             this.label6.TabIndex = 25;
             this.label6.Text = "label6";
             this.label6.TextChanged += new System.EventHandler(this.label6_TextChanged);
             // 
-            // listBox1
-            // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(327, 0);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(63, 95);
-            this.listBox1.TabIndex = 26;
-            // 
             // listBox2
             // 
             this.listBox2.FormattingEnabled = true;
-            this.listBox2.Location = new System.Drawing.Point(259, 104);
+            this.listBox2.Location = new System.Drawing.Point(235, 95);
             this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(541, 56);
+            this.listBox2.Size = new System.Drawing.Size(565, 69);
             this.listBox2.TabIndex = 27;
             // 
             // richTextBox1
@@ -397,6 +388,7 @@ namespace chat_client
             this.richTextBox1.TabIndex = 12;
             this.richTextBox1.Text = "";
             this.richTextBox1.TextColor = chat_client.RtfColor.Black;
+            this.richTextBox1.Enter += new System.EventHandler(this.richTextBox1_Enter);
             // 
             // Form1
             // 
@@ -404,7 +396,6 @@ namespace chat_client
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(802, 490);
             this.Controls.Add(this.listBox2);
-            this.Controls.Add(this.listBox1);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.deleteLast);
             this.Controls.Add(this.button14);
@@ -475,7 +466,6 @@ namespace chat_client
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Button deleteLast;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.ListBox listBox2;
     }
 }

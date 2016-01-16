@@ -16,51 +16,51 @@ namespace chat_client
 
               switch (imgCode)
               {
-                  case "***###EmbarassedSmile###***":
+                  case "EmbarassedSmile":
                       img = Properties.Resources.EmbarassedSmile;
                       return img;
                      
-                  case "***###AngelSmile###***":
+                  case "AngelSmile":
                       img = Properties.Resources.AngelSmile;
                       return img;
                      
-                  case "***###AngrySmile###***":
+                  case "AngrySmile":
                       img = Properties.Resources.AngrySmile;
                       return img;
 
-                  case "***###Beer###***":
+                  case "Beer":
                       img = Properties.Resources.Beer;
                       return img;
 
-                  case "***###BrokenHeart###***":
+                  case "BrokenHeart":
                       img = Properties.Resources.BrokenHeart;
                       return img;
 
-                  case "***###ConfusedSmile###***":
+                  case "ConfusedSmile":
                       img = Properties.Resources.ConfusedSmile;
                       return img;
 
-                  case "***###CrySmile###***":
+                  case "CrySmile":
                       img = Properties.Resources.CrySmile;
                       return img;
 
-                  case "***###DevilSmile###***":
+                  case "DevilSmile":
                       img = Properties.Resources.DevilSmile;
                       return img;
 
-                  case "***###ThumbsUp###***":
+                  case "ThumbsUp":
                       img = Properties.Resources.ThumbsUp;
                       return img;
 
-                  case "***###black_eye###***":
+                  case "black_eye":
                       img = Properties.Resources.black_eye;
                       return img;
                       
-                  case "***###slapping###***":
+                  case "slapping":
                       img = Properties.Resources.slapping;
                       return img;
                       
-                  case "***###shit_emoticon###***":
+                  case "shit_emoticon":
                       img = Properties.Resources.shit_emoticon;
                       return img;
 
@@ -69,5 +69,7 @@ namespace chat_client
                       return img;
               }
           }
+
+     
     }
 }

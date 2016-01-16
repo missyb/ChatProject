@@ -13,7 +13,8 @@ namespace chat_client
         sender,
         emoticon,
         deleteID, 
-        action
+        action,
+        delivered
     };
 
    public class TMessage
@@ -21,10 +22,12 @@ namespace chat_client
        public TMessage()
        {
            msgID = Guid.NewGuid().ToString();
+           isActive = false;
        }
        public TMessage(string theGUID)
        {
            msgID = theGUID;
+           isActive = false;
        }
                  
        public string msg { get; set; }
@@ -36,5 +39,7 @@ namespace chat_client
        public bool read { get; set; }
 
        public string msgID { get; set; }
+       
+       public bool isActive { get; set; }
     }
 }
