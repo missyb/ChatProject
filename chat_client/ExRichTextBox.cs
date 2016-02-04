@@ -611,9 +611,13 @@ namespace chat_client
                 // Close the RTF image control string
                 _rtf.Append(RTF_IMAGE_POST);
 
-                this.SelectedRtf = _rtf.ToString();
-                //Debug debugForm = new Debug(_rtf.ToString());
-                //debugForm.Show();
+                this.Invoke((Action) delegate
+                {
+
+                    this.SelectedRtf = _rtf.ToString();
+                    //Debug debugForm = new Debug(_rtf.ToString());
+                    //debugForm.Show();
+                });
             }
 
             /// <summary>

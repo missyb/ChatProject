@@ -32,7 +32,6 @@ namespace chat_client
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -64,15 +63,13 @@ namespace chat_client
             this.deleteLast = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.listBox2 = new System.Windows.Forms.ListBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.TextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.richTextBox1 = new chat_client.ExRichTextBox();
+            this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.flowLayoutPanel1.SuspendLayout();
+            this.flowLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -176,7 +173,7 @@ namespace chat_client
             // 
             // textMessage
             // 
-            this.textMessage.Location = new System.Drawing.Point(30, 502);
+            this.textMessage.Location = new System.Drawing.Point(30, 451);
             this.textMessage.Name = "textMessage";
             this.textMessage.Size = new System.Drawing.Size(673, 20);
             this.textMessage.TabIndex = 5;
@@ -194,7 +191,7 @@ namespace chat_client
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(715, 500);
+            this.button2.Location = new System.Drawing.Point(715, 449);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 6;
@@ -205,7 +202,7 @@ namespace chat_client
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(100, 132);
+            this.label5.Location = new System.Drawing.Point(97, 417);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(35, 13);
             this.label5.TabIndex = 10;
@@ -214,7 +211,7 @@ namespace chat_client
             // button14
             // 
             this.button14.Image = global::chat_client.Properties.Resources.slapping;
-            this.button14.Location = new System.Drawing.Point(721, 393);
+            this.button14.Location = new System.Drawing.Point(3, 219);
             this.button14.Name = "button14";
             this.button14.Size = new System.Drawing.Size(60, 39);
             this.button14.TabIndex = 23;
@@ -225,7 +222,7 @@ namespace chat_client
             // button13
             // 
             this.button13.Image = global::chat_client.Properties.Resources.black_eye;
-            this.button13.Location = new System.Drawing.Point(721, 342);
+            this.button13.Location = new System.Drawing.Point(3, 168);
             this.button13.Name = "button13";
             this.button13.Size = new System.Drawing.Size(60, 45);
             this.button13.TabIndex = 22;
@@ -236,7 +233,7 @@ namespace chat_client
             // button12
             // 
             this.button12.Image = global::chat_client.Properties.Resources.ThumbsUp;
-            this.button12.Location = new System.Drawing.Point(754, 309);
+            this.button12.Location = new System.Drawing.Point(36, 135);
             this.button12.Name = "button12";
             this.button12.Size = new System.Drawing.Size(27, 27);
             this.button12.TabIndex = 21;
@@ -247,7 +244,7 @@ namespace chat_client
             // button11
             // 
             this.button11.Image = global::chat_client.Properties.Resources.DevilSmile;
-            this.button11.Location = new System.Drawing.Point(721, 309);
+            this.button11.Location = new System.Drawing.Point(3, 135);
             this.button11.Name = "button11";
             this.button11.Size = new System.Drawing.Size(27, 27);
             this.button11.TabIndex = 20;
@@ -258,7 +255,7 @@ namespace chat_client
             // button10
             // 
             this.button10.Image = global::chat_client.Properties.Resources.poop;
-            this.button10.Location = new System.Drawing.Point(754, 276);
+            this.button10.Location = new System.Drawing.Point(36, 102);
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(27, 27);
             this.button10.TabIndex = 19;
@@ -269,7 +266,7 @@ namespace chat_client
             // button9
             // 
             this.button9.Image = global::chat_client.Properties.Resources.CrySmile;
-            this.button9.Location = new System.Drawing.Point(721, 276);
+            this.button9.Location = new System.Drawing.Point(3, 102);
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(27, 27);
             this.button9.TabIndex = 18;
@@ -280,7 +277,7 @@ namespace chat_client
             // button8
             // 
             this.button8.Image = global::chat_client.Properties.Resources.ConfusedSmile;
-            this.button8.Location = new System.Drawing.Point(754, 243);
+            this.button8.Location = new System.Drawing.Point(36, 69);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(27, 27);
             this.button8.TabIndex = 17;
@@ -291,7 +288,7 @@ namespace chat_client
             // button7
             // 
             this.button7.Image = global::chat_client.Properties.Resources.BrokenHeart;
-            this.button7.Location = new System.Drawing.Point(721, 243);
+            this.button7.Location = new System.Drawing.Point(3, 69);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(27, 27);
             this.button7.TabIndex = 16;
@@ -302,7 +299,7 @@ namespace chat_client
             // button6
             // 
             this.button6.Image = global::chat_client.Properties.Resources.Beer;
-            this.button6.Location = new System.Drawing.Point(754, 210);
+            this.button6.Location = new System.Drawing.Point(36, 36);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(27, 27);
             this.button6.TabIndex = 15;
@@ -313,7 +310,7 @@ namespace chat_client
             // button5
             // 
             this.button5.Image = global::chat_client.Properties.Resources.AngrySmile;
-            this.button5.Location = new System.Drawing.Point(721, 210);
+            this.button5.Location = new System.Drawing.Point(3, 36);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(27, 27);
             this.button5.TabIndex = 14;
@@ -324,7 +321,7 @@ namespace chat_client
             // button4
             // 
             this.button4.Image = global::chat_client.Properties.Resources.AngelSmile;
-            this.button4.Location = new System.Drawing.Point(754, 177);
+            this.button4.Location = new System.Drawing.Point(36, 3);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(27, 27);
             this.button4.TabIndex = 13;
@@ -335,7 +332,7 @@ namespace chat_client
             // button3
             // 
             this.button3.Image = global::chat_client.Properties.Resources.EmbarassedSmile;
-            this.button3.Location = new System.Drawing.Point(721, 177);
+            this.button3.Location = new System.Drawing.Point(3, 3);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(27, 27);
             this.button3.TabIndex = 11;
@@ -345,7 +342,7 @@ namespace chat_client
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(33, 110);
+            this.pictureBox1.Location = new System.Drawing.Point(30, 395);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(54, 50);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -357,7 +354,7 @@ namespace chat_client
             this.deleteLast.BackColor = System.Drawing.Color.Tomato;
             this.deleteLast.Cursor = System.Windows.Forms.Cursors.Hand;
             this.deleteLast.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.deleteLast.Location = new System.Drawing.Point(30, 451);
+            this.deleteLast.Location = new System.Drawing.Point(566, 395);
             this.deleteLast.Name = "deleteLast";
             this.deleteLast.Size = new System.Drawing.Size(146, 45);
             this.deleteLast.TabIndex = 24;
@@ -379,107 +376,50 @@ namespace chat_client
             // listBox2
             // 
             this.listBox2.FormattingEnabled = true;
-            this.listBox2.Location = new System.Drawing.Point(437, 95);
+            this.listBox2.Location = new System.Drawing.Point(3, 3);
             this.listBox2.Name = "listBox2";
             this.listBox2.Size = new System.Drawing.Size(363, 69);
             this.listBox2.TabIndex = 27;
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToResizeColumns = false;
-            this.dataGridView1.AllowUserToResizeRows = false;
-            this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dataGridView1.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.ColumnHeadersVisible = false;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.TextBoxColumn});
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle1;
-            this.dataGridView1.Location = new System.Drawing.Point(504, 177);
-            this.dataGridView1.MultiSelect = false;
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.Size = new System.Drawing.Size(169, 42);
-            this.dataGridView1.TabIndex = 28;
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
-            // 
-            // TextBoxColumn
-            // 
-            this.TextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
-            this.TextBoxColumn.HeaderText = "Textbox Column";
-            this.TextBoxColumn.Name = "TextBoxColumn";
-            this.TextBoxColumn.ReadOnly = true;
-            this.TextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.TextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.TextBoxColumn.Width = 5;
-            // 
-            // panel1
-            // 
-            this.panel1.AutoScroll = true;
-            this.panel1.BackColor = System.Drawing.Color.White;
-            this.panel1.Location = new System.Drawing.Point(455, 225);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(144, 52);
-            this.panel1.TabIndex = 29;
-            this.panel1.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.panel1_ControlAdded);
             // 
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.AutoScroll = true;
             this.flowLayoutPanel1.BackColor = System.Drawing.Color.White;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(33, 170);
+            this.flowLayoutPanel1.Controls.Add(this.listBox2);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(30, 110);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(670, 275);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(682, 279);
             this.flowLayoutPanel1.TabIndex = 30;
+            this.flowLayoutPanel1.Enter += new System.EventHandler(this.flowLayoutPanel1_Enter);
             // 
-            // richTextBox1
+            // flowLayoutPanel2
             // 
-            this.richTextBox1.ForeColor = System.Drawing.Color.Green;
-            this.richTextBox1.HiglightColor = chat_client.RtfColor.White;
-            this.richTextBox1.Location = new System.Drawing.Point(30, 166);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(673, 279);
-            this.richTextBox1.TabIndex = 12;
-            this.richTextBox1.Text = "";
-            this.richTextBox1.TextColor = chat_client.RtfColor.Black;
-            this.richTextBox1.Enter += new System.EventHandler(this.richTextBox1_Enter);
+            this.flowLayoutPanel2.Controls.Add(this.button3);
+            this.flowLayoutPanel2.Controls.Add(this.button4);
+            this.flowLayoutPanel2.Controls.Add(this.button5);
+            this.flowLayoutPanel2.Controls.Add(this.button6);
+            this.flowLayoutPanel2.Controls.Add(this.button7);
+            this.flowLayoutPanel2.Controls.Add(this.button8);
+            this.flowLayoutPanel2.Controls.Add(this.button9);
+            this.flowLayoutPanel2.Controls.Add(this.button10);
+            this.flowLayoutPanel2.Controls.Add(this.button11);
+            this.flowLayoutPanel2.Controls.Add(this.button12);
+            this.flowLayoutPanel2.Controls.Add(this.button13);
+            this.flowLayoutPanel2.Controls.Add(this.button14);
+            this.flowLayoutPanel2.Location = new System.Drawing.Point(722, 121);
+            this.flowLayoutPanel2.Name = "flowLayoutPanel2";
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(69, 268);
+            this.flowLayoutPanel2.TabIndex = 31;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(803, 536);
-            this.Controls.Add(this.deleteLast);
+            this.ClientSize = new System.Drawing.Size(803, 486);
             this.Controls.Add(this.flowLayoutPanel1);
-            this.Controls.Add(this.panel1);
-            this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.listBox2);
+            this.Controls.Add(this.flowLayoutPanel2);
+            this.Controls.Add(this.deleteLast);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.button14);
-            this.Controls.Add(this.button13);
-            this.Controls.Add(this.button12);
-            this.Controls.Add(this.button11);
-            this.Controls.Add(this.button10);
-            this.Controls.Add(this.button9);
-            this.Controls.Add(this.button8);
-            this.Controls.Add(this.button7);
-            this.Controls.Add(this.button6);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.richTextBox1);
-            this.Controls.Add(this.button3);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.button2);
@@ -487,8 +427,9 @@ namespace chat_client
             this.Controls.Add(this.textMessage);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Chat Client";
             this.Activated += new System.EventHandler(this.Form1_Activated);
             this.Deactivate += new System.EventHandler(this.Form1_Deactivate);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
@@ -497,7 +438,8 @@ namespace chat_client
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.flowLayoutPanel1.ResumeLayout(false);
+            this.flowLayoutPanel2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -521,7 +463,6 @@ namespace chat_client
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button button3;
-        private ExRichTextBox richTextBox1;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button6;
@@ -537,10 +478,8 @@ namespace chat_client
         private System.Windows.Forms.Button deleteLast;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ListBox listBox2;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TextBoxColumn;
-        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
     }
 }
 

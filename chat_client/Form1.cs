@@ -57,7 +57,7 @@ namespace chat_client
             textLocalIP.Text = GetLocalIP();
             pictureBox1.Image = Properties.Resources.whitelight;
             label5.Text = "Offline";
-            //All the logic to determine who am I
+            //Logic to determine who am I
             lHostName = Dns.GetHostName();
             
             if (lHostName == "JSANCHEZ-LT")
@@ -88,12 +88,12 @@ namespace chat_client
 
             try
             {
-                comboBox1.Items.Add(GetRemoteIPByName(oHostName));       //get other client's IP Address, if not put 127.0.0.1 there
+                comboBox1.Items.Add(GetRemoteIPByName(oHostName));       //get other client's IP Address, if not put 127.0.0.1
             }
             catch (Exception ex)
             {
                 //MessageBox.Show(ex.ToString());
-                comboBox1.Items.Add(textLocalIP.Text);
+                comboBox1.Items.Add(textLocalIP.Text);    //when client's IP is not found, it throws an error, and this just puts my IP there
             }
             comboBox1.SelectedIndex = 0;
             textLocalPort.Text = "80";
@@ -102,12 +102,6 @@ namespace chat_client
             button2.Enabled = false;
             label6.Visible = false;
             listBox2.Visible = false;
-            //panel1.VerticalScroll.Visible = true;
-            //listView1.Visible = false;
-
-
-            // panel1.Controls.Add(new ExRichTextBox());
-
         }
 
         //Get my own IP adress
@@ -157,7 +151,8 @@ namespace chat_client
                 }
                   catch(SocketException se)
                 {
-                      //do nothing hopefully??
+                      //do nothing. this is for when it is sending messages back and forth about being active and 
+                      //the other chat client isn't up yet, it would throw an exception.
                 }
                 if (size > 0)
                 {
@@ -215,7 +210,7 @@ namespace chat_client
 
         }
 
-        private void ReceiveEmoticonMessage(string message)
+        private void ReceiveEmoticonMessage(string message)           //function gets run when incoming message is an emoticon
         {
             string tID = message.Substring(4, 36);
 
@@ -237,9 +232,8 @@ namespace chat_client
             System.Text.ASCIIEncoding enc = new System.Text.ASCIIEncoding();
             byte[] msg = new byte[1500];
             msg = enc.GetBytes(deliveredE.header + deliveredE.msgID + deliveredE.isActive + deliveredE.msg);
-
-            sck.Send(msg);    
-                                                              //send back the message of delivered and read or not read
+            sck.Send(msg);                                     //send back the message of delivered and read or not read
+                                                              
             RichTextBox myERTFEmoticon = new RichTextBox();
 
             flowLayoutPanel1.Invoke((Action)delegate
@@ -253,9 +247,9 @@ namespace chat_client
                     MessageBox.Show(aex.ToString());
                 }
             });
-            AppendText(myERTFEmoticon, receiveEmoticon.sender + ": ", Color.Red, false);
+            AppendText(myERTFEmoticon, receiveEmoticon.sender + ": ", Color.Red, false);       //append the sender: 
             RichTextBoxStuff.EmbedImage(img, myERTFEmoticon);
-
+           // myERTFEmoticon.InsertImage(img);
             myERTFEmoticon.Invoke((Action)delegate
             {
                 myERTFEmoticon.Dock = DockStyle.Top;
@@ -267,17 +261,10 @@ namespace chat_client
 
             });
 
-
-            //myERTFEmoticon.InsertImage(img);
-            //richTextBox1.SelectionStart = richTextBox1.Text.Length;
-            //AppendText(richTextBox1, receiveEmoticon.sender + ": ", Color.Red, false);
-             
-            //richTextBox1.InsertImage(img);
-            //AppendText(richTextBox1, "", Color.Red, true);
-            ////AppendText(receiveEmoticon.sender + ": " + receiveEmoticon.msg, Color.Red, true);       //Put the message into the RichTextBox
-            conversationList.Add(receiveEmoticon);   
+            conversationList.Add(receiveEmoticon);                      //add it to the List keeping track of the conversation
         }
 
+        //Function which receives a message saying that your message was delivered and then sets whether the other chat client is active or not
         private void ReceiveDeliveredMessage(string message)
         {
             string wasItActive = message.Substring(40, 4);
@@ -295,30 +282,30 @@ namespace chat_client
 
         }
 
+        //Function that receives message telling it to delete the last message.
         private void ReceiveDeleteMessage(string message)
         {
-            
-            string tID = message.Substring(4, 36);
-            if (conversationList[conversationList.Count - 1].msgID == tID) //Get GUID of received message
+
+            string tID = message.Substring(4, 36);                                      //Get GUID of received message
+            if (conversationList[conversationList.Count - 1].msgID == tID)              //if it's the same on your conversation list, then delete
             {
-                conversationList.RemoveAll(t=>t.msgID == tID);
+                conversationList.RemoveAll(t=>t.msgID == tID);                          //delete from converationList
                 Control c = flowLayoutPanel1.Controls[flowLayoutPanel1.Controls.Count - 1];
-                c.Dispose();
+                c.Dispose();                                                            //delete from UI
             }
-            //Reload_Own_Text(); 
         }
 
         private void ReceiveTextMessage(string message)
         {
             string tID = message.Substring(4, 36);                      //Get GUID of received message
 
-            TMessage receivedMessage = new TMessage(tID);               //Create the Message Object
+            TMessage receivedMessage = new TMessage(tID);               //Create the received message object
             receivedMessage.header = message.Substring(0, 4);
             receivedMessage.msg = message.Remove(0, 40);
             receivedMessage.sender = oHostChat;
             receivedMessage.read = true;
 
-            TMessage delivered = new TMessage(tID);               //Create the delivered message
+            TMessage delivered = new TMessage(tID);               //Create the delivered message object
             delivered.header = "0006";
             delivered.msg = "DELIVERED";
             delivered.sender = "Me";
@@ -328,7 +315,6 @@ namespace chat_client
             System.Text.ASCIIEncoding enc = new System.Text.ASCIIEncoding();
             byte[] msg = new byte[1500];
             msg = enc.GetBytes(delivered.header + delivered.msgID + delivered.isActive + delivered.msg);
-
             sck.Send(msg);                                    //send back the message of delivered and read or not read
 
             if (receivedMessage.msg.Count() > 0)
@@ -368,7 +354,7 @@ namespace chat_client
             }   //end if recievedMessage.msg.count > 0
         }
 
-        private int AnalyzeHeader(string header)
+        private int AnalyzeHeader(string header)                //analyzes message header and returns an int
         {
             int intHeader;
             Int32.TryParse(header, out intHeader);
@@ -452,10 +438,7 @@ namespace chat_client
                 {
                    
                     string message = sentMessage.sender + ": " + sentMessage.msg;
-                    //dataGridView1.Rows.Add(message);
-                    //DataGridViewRow dgvr = dataGridView1.Rows[dataGridView1.Rows.Count-1];
-                    //dgvr.DefaultCellStyle.ForeColor = Color.Blue;
-
+                   
                     ExRichTextBox myERTF = new ExRichTextBox();
                     myERTF.Dock = DockStyle.Top;
                     myERTF.BorderStyle = BorderStyle.None;
@@ -472,12 +455,9 @@ namespace chat_client
                     }
                     int lineCount = 2 + (CountOfCharacters + 4)/ 107;
                     myERTF.Size = new System.Drawing.Size(flowLayoutPanel1.Width - 24, lineCount*(Font.Height));
-                    //myERTF.ScrollBars = RichTextBoxScrollBars.None;
-
-                  
+                    
                     flowLayoutPanel1.ScrollControlIntoView(myERTF);
-                   
-                                      
+                    
                     conversationList.Add(sentMessage);      //adding the object to the list of messages in conversation
                     SendSound();
                      
@@ -497,11 +477,8 @@ namespace chat_client
                         });
                         isLastMessageDelivered = false;
                     }
-
-
-                    Display_Dictionary();
+                    Display_Dictionary();               //For Listbox2 which is for debugging, now it is hidden
                 }
-               
                 textMessage.Clear();
            }
             catch (Exception ex)
@@ -510,6 +487,7 @@ namespace chat_client
             }
         }
 
+        //Function so you can press enter to send the message you are sending
         private void textMessage_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -565,26 +543,27 @@ namespace chat_client
             sck.Send(msg);
         }
 
-
-        public void AppendText(RichTextBox ertf, string text, Color color, bool AddNewLine = false)
+         //Function that adds text to the RichTextBox you tell it to.
+        public void AppendText(RichTextBox rtb, string text, Color color, bool AddNewLine = false)
         {
             if (AddNewLine)
             {
                 text += Environment.NewLine;
             }
 
-            ertf.Invoke((Action)delegate
+            rtb.Invoke((Action)delegate
             {
-                ertf.SelectionStart = ertf.TextLength;
-                ertf.SelectionLength = 0;
+                rtb.SelectionStart = rtb.TextLength;
+                rtb.SelectionLength = 0;
 
-                ertf.SelectionColor = color;
-                ertf.AppendText(text);
-                ertf.SelectionColor = ertf.ForeColor;
-                ScrollToBottom(ertf);
+                rtb.SelectionColor = color;
+                rtb.AppendText(text);
+                rtb.SelectionColor = rtb.ForeColor;
+                ScrollToBottom(rtb);
             });
         }
 
+        //Function that recieves message with action such as away or logged off
         public void ReceiveActionMessage(string transmission)
         {
             string tID = transmission.Substring(4, 36);                      //Get GUID of received message
@@ -636,7 +615,7 @@ namespace chat_client
             
           
         }
-        //Functio to Scroll To Bottom of the Rich Text Box
+        //Functio to Scroll To Bottom of the Rich Text Box   || I don't think I need this anymore, since i am scrolling to bottom of flowLayoutPanel now
         public static void ScrollToBottom(RichTextBox MyRichTextBox)
         {
             MyRichTextBox.Invoke((Action)delegate
@@ -645,14 +624,15 @@ namespace chat_client
            });
         }
       
+        //Function that sends Emoticon when any emoticon button is pressed
         private void SendEmoticon(TMessage emoticon)
         {
             ExRichTextBox sendEmoTextBox = new ExRichTextBox();
+            
             AppendText(sendEmoTextBox, emoticon.sender + ": ", Color.Blue, false);
             Image image = Images.GetImage(emoticon.msg);
             sendEmoTextBox.InsertImage(image);
-            //AppendText(richTextBox1, "", Color.Blue, true);
-            //ScrollToBottom(richTextBox1);
+            
             flowLayoutPanel1.Controls.Add(sendEmoTextBox);
            
             sendEmoTextBox.Invoke((Action)delegate
@@ -660,10 +640,8 @@ namespace chat_client
                 sendEmoTextBox.Dock = DockStyle.Top;
                 sendEmoTextBox.BorderStyle = BorderStyle.None;
                 sendEmoTextBox.Anchor = AnchorStyles.Top;
-
                 sendEmoTextBox.Size = new System.Drawing.Size(flowLayoutPanel1.Width - 24, image.Height+5);
                 flowLayoutPanel1.ScrollControlIntoView(sendEmoTextBox);
-
             });
 
             System.Text.ASCIIEncoding enc = new System.Text.ASCIIEncoding();
@@ -693,7 +671,7 @@ namespace chat_client
                 });
                 isLastMessageDelivered = false;
             }
-            Display_Dictionary();
+            Display_Dictionary();                          //For listbox2 which is for debugging, now it is hidden
         }
 
         private void button3_Click(object sender, EventArgs e)                                                                         
@@ -703,8 +681,7 @@ namespace chat_client
             emoObject.msg = button3.Tag.ToString();
             emoObject.sender = "Me";
             emoObject.read = false;
-            SendEmoticon(emoObject);
-            
+            SendEmoticon(emoObject);    
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -824,6 +801,7 @@ namespace chat_client
            // sck.Dispose();
         }
 
+        //Function for what happens when you click on the deleteLast button
         private void deleteLast_Click(object sender, EventArgs e)
         {
            // New_Reload_Own_Text();
@@ -842,25 +820,13 @@ namespace chat_client
 
             msg = enc.GetBytes(lastMessage.header + lastMessage.msgID + lastMessage.msg);
             
-            //List<string> myList = richTextBox1.Lines.ToList();
-            //if (myList.Count > 0)
-            //{
-                //if (myList[myList.Count - 2] == lastMessage.sender + ": " + lastMessage.msg)
-                //{
-                    //myList.RemoveAt(myList.Count - 2);
-                    //richTextBox1.Lines = myList.ToArray();
-                    //richTextBox1.Refresh();
-                //}
-            //}
-            //MessageBox.Show(lastMessage.header + lastMessage.msgID + lastMessage.msg);
-            
             sck.Send(msg);
 
             conversationList.RemoveAt(conversationList.Count - 1);
             Control c = flowLayoutPanel1.Controls[flowLayoutPanel1.Controls.Count - 1];
             c.Dispose();
 
-            Reload_Own_Text();
+            //Reload_Own_Text();
             if (conversationList[conversationList.Count - 1].read == true)
             {
                 deleteLast.Visible = false;
@@ -919,7 +885,8 @@ namespace chat_client
                 // MessageBox.Show(ex.ToString());
             } 
         }
-
+        
+        //Function that when the other client becomes active, it goes through the your conversation list and says all the messages have been read
         private void Change_All_To_Read()
         {
             foreach(var tMessage in conversationList)
@@ -928,7 +895,8 @@ namespace chat_client
             }
             
         }
-            //display the conversationList for debugging purposes
+        
+        //display the conversationList for debugging purposes
         private void Display_Dictionary()
         {
             listBox2.Invoke((Action)delegate
@@ -940,13 +908,14 @@ namespace chat_client
                }
            });
         }
-                //What to do if the label6 changes
+         
+        //What to do if the label6 changes, this is what changes the picture and the delete Last button
         private void label6_TextChanged(object sender, EventArgs e)
         {
             if(label6.Text == "Activated")
             {
                 pictureBox1.Image = Properties.Resources.greenlight2;
-                label5.Text = "Online";
+                label5.Text = "Active";
                 deleteLast.Visible = false;
                 Change_All_To_Read();
                 Display_Dictionary();
@@ -958,90 +927,22 @@ namespace chat_client
             }
 
         }
-            
-        private void New_Reload_Own_Text()
-        {
-            string stuff = richTextBox1.Rtf.ToString();
-            Debug window = new Debug(stuff);
-            window.ShowDialog();
-            //MessageBox.Show(stuff);
-            int num = -1;
-            if (TryOperations("\\par\r\nMe: "))
-                num = stuff.LastIndexOf("\\par\r\nMe: ");
-            else if(TryOperations("\\par\r\n\\cf1 Me: "))
-                num = stuff.LastIndexOf("\\par\r\n\\cf1 Me: ");
-            else if (TryOperations("\\par\r\n\\cf1 Me: "))
-                num = stuff.LastIndexOf("\\par\r\n\\cf1 Me: ");
-
-          
-            string newStuff = stuff.Remove(num);
-            newStuff += "\r\n\\cf3\\par\r\n}";
-            richTextBox1.Rtf = newStuff;
-
-
-        }
         
-        private bool TryOperations(string toTry)
-        {
-            int num = -1;
-            try
-            {
-                num = richTextBox1.Rtf.ToString().LastIndexOf(toTry);
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-
-        }
+        //Don't need this
+       
         
-        private void Reload_Own_Text()      //Reload the text in my own richTextBox1 with 
-        {
-            richTextBox1.Clear();
-            foreach(TMessage storedMessage in conversationList)
-            {
-                Color theColor; 
-                    if(storedMessage.sender.Equals("Me"))
-                        theColor = Color.Blue;
-                    else if(storedMessage.sender.Equals(oHostChat))
-                        theColor = Color.Red;
-                    else
-                        theColor = Color.Brown;
-                    if (AnalyzeHeader(storedMessage.header) == 1)
-                    {
-                        AppendText(richTextBox1, storedMessage.sender + ": " + storedMessage.msg, theColor, true);
-                    }
-                    else if(AnalyzeHeader(storedMessage.header) == 3)
-                    {
-                        Image img = Images.GetImage(storedMessage.msg);
-                        AppendText(richTextBox1, storedMessage.sender + ": ", theColor, false);
-                        richTextBox1.InsertImage(img);
-                        AppendText(richTextBox1, "", theColor, true);
-                    }
-            }   
-        }
-
+       //dont need this either
         private void richTextBox1_Enter(object sender, EventArgs e)
         {
             textMessage.Focus();
             //System.Windows.Forms.SendKeys.Send("{tab}");
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void flowLayoutPanel1_Enter(object sender, EventArgs e)
         {
-
+            textMessage.Focus();
         }
 
-        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
-        {
-            dataGridView1.ClearSelection();
-        }
-
-        private void panel1_ControlAdded(object sender, ControlEventArgs e)
-        {
-            panel1.ScrollControlIntoView(e.Control);
-        }
        
     }
 
