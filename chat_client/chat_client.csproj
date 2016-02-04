@@ -155,6 +155,7 @@
     <Compile Include="ImprovedListBox.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="RichTextBoxStuff.cs" />
     <Compile Include="TMessage.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -612,6 +612,8 @@ namespace chat_client
                 _rtf.Append(RTF_IMAGE_POST);
 
                 this.SelectedRtf = _rtf.ToString();
+                //Debug debugForm = new Debug(_rtf.ToString());
+                //debugForm.Show();
             }
 
             /// <summary>

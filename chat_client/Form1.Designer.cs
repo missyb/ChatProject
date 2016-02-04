@@ -32,6 +32,7 @@ namespace chat_client
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -63,10 +64,15 @@ namespace chat_client
             this.deleteLast = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.listBox2 = new System.Windows.Forms.ListBox();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.TextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.richTextBox1 = new chat_client.ExRichTextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -170,7 +176,7 @@ namespace chat_client
             // 
             // textMessage
             // 
-            this.textMessage.Location = new System.Drawing.Point(30, 451);
+            this.textMessage.Location = new System.Drawing.Point(30, 502);
             this.textMessage.Name = "textMessage";
             this.textMessage.Size = new System.Drawing.Size(673, 20);
             this.textMessage.TabIndex = 5;
@@ -188,7 +194,7 @@ namespace chat_client
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(715, 448);
+            this.button2.Location = new System.Drawing.Point(715, 500);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 6;
@@ -351,7 +357,7 @@ namespace chat_client
             this.deleteLast.BackColor = System.Drawing.Color.Tomato;
             this.deleteLast.Cursor = System.Windows.Forms.Cursors.Hand;
             this.deleteLast.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.deleteLast.Location = new System.Drawing.Point(542, 393);
+            this.deleteLast.Location = new System.Drawing.Point(30, 451);
             this.deleteLast.Name = "deleteLast";
             this.deleteLast.Size = new System.Drawing.Size(146, 45);
             this.deleteLast.TabIndex = 24;
@@ -373,10 +379,70 @@ namespace chat_client
             // listBox2
             // 
             this.listBox2.FormattingEnabled = true;
-            this.listBox2.Location = new System.Drawing.Point(235, 95);
+            this.listBox2.Location = new System.Drawing.Point(437, 95);
             this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(565, 69);
+            this.listBox2.Size = new System.Drawing.Size(363, 69);
             this.listBox2.TabIndex = 27;
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToResizeColumns = false;
+            this.dataGridView1.AllowUserToResizeRows = false;
+            this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dataGridView1.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.ColumnHeadersVisible = false;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.TextBoxColumn});
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle1;
+            this.dataGridView1.Location = new System.Drawing.Point(504, 177);
+            this.dataGridView1.MultiSelect = false;
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.RowHeadersVisible = false;
+            this.dataGridView1.Size = new System.Drawing.Size(169, 42);
+            this.dataGridView1.TabIndex = 28;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
+            // 
+            // TextBoxColumn
+            // 
+            this.TextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
+            this.TextBoxColumn.HeaderText = "Textbox Column";
+            this.TextBoxColumn.Name = "TextBoxColumn";
+            this.TextBoxColumn.ReadOnly = true;
+            this.TextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.TextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.TextBoxColumn.Width = 5;
+            // 
+            // panel1
+            // 
+            this.panel1.AutoScroll = true;
+            this.panel1.BackColor = System.Drawing.Color.White;
+            this.panel1.Location = new System.Drawing.Point(455, 225);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(144, 52);
+            this.panel1.TabIndex = 29;
+            this.panel1.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.panel1_ControlAdded);
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.AutoScroll = true;
+            this.flowLayoutPanel1.BackColor = System.Drawing.Color.White;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(33, 170);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(670, 275);
+            this.flowLayoutPanel1.TabIndex = 30;
             // 
             // richTextBox1
             // 
@@ -394,10 +460,13 @@ namespace chat_client
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(802, 490);
+            this.ClientSize = new System.Drawing.Size(803, 536);
+            this.Controls.Add(this.deleteLast);
+            this.Controls.Add(this.flowLayoutPanel1);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.listBox2);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.deleteLast);
             this.Controls.Add(this.button14);
             this.Controls.Add(this.button13);
             this.Controls.Add(this.button12);
@@ -428,6 +497,7 @@ namespace chat_client
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -467,6 +537,10 @@ namespace chat_client
         private System.Windows.Forms.Button deleteLast;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ListBox listBox2;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TextBoxColumn;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
     }
 }
 

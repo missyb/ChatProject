@@ -101,7 +101,13 @@ namespace chat_client
             button1.Focus();
             button2.Enabled = false;
             label6.Visible = false;
+            listBox2.Visible = false;
+            //panel1.VerticalScroll.Visible = true;
             //listView1.Visible = false;
+
+
+            // panel1.Controls.Add(new ExRichTextBox());
+
         }
 
         //Get my own IP adress
@@ -185,15 +191,7 @@ namespace chat_client
             else
                 return true;
         }
-        //Function to determine whether the window is active at the time the message is sent        
-        //private bool IsActive(VisualStyleElement.Window wnd)
-        //{
-        //    // workaround for minimization bug
-        //    // Managed .IsActive may return wrong value
-        //    if (wnd == null) return false;
-        //    return GetForegroundWindow() == new WindowInteropHelper(wnd).Handle;
-        //}
-
+    
         public bool IsApplicationActive()
         {
             return this.ContainsFocus; 
@@ -240,14 +238,43 @@ namespace chat_client
             byte[] msg = new byte[1500];
             msg = enc.GetBytes(deliveredE.header + deliveredE.msgID + deliveredE.isActive + deliveredE.msg);
 
-            sck.Send(msg);                                                                  //send back the message of delivered and read or not read
+            sck.Send(msg);    
+                                                              //send back the message of delivered and read or not read
+            RichTextBox myERTFEmoticon = new RichTextBox();
 
-            richTextBox1.SelectionStart = richTextBox1.Text.Length;
-            AppendText(receiveEmoticon.sender + ": ", Color.Red, false);
+            flowLayoutPanel1.Invoke((Action)delegate
+            {
+                try
+                {
+                    flowLayoutPanel1.Controls.Add(myERTFEmoticon);
+                }
+                catch (Exception aex)
+                {
+                    MessageBox.Show(aex.ToString());
+                }
+            });
+            AppendText(myERTFEmoticon, receiveEmoticon.sender + ": ", Color.Red, false);
+            RichTextBoxStuff.EmbedImage(img, myERTFEmoticon);
+
+            myERTFEmoticon.Invoke((Action)delegate
+            {
+                myERTFEmoticon.Dock = DockStyle.Top;
+                myERTFEmoticon.BorderStyle = BorderStyle.None;
+                myERTFEmoticon.Anchor = AnchorStyles.Top;
+
+                myERTFEmoticon.Size = new System.Drawing.Size(flowLayoutPanel1.Width - 24, img.Height + 5);
+                flowLayoutPanel1.ScrollControlIntoView(myERTFEmoticon);
+
+            });
+
+
+            //myERTFEmoticon.InsertImage(img);
+            //richTextBox1.SelectionStart = richTextBox1.Text.Length;
+            //AppendText(richTextBox1, receiveEmoticon.sender + ": ", Color.Red, false);
              
-            richTextBox1.InsertImage(img);
-            AppendText("", Color.Red, true);
-            //AppendText(receiveEmoticon.sender + ": " + receiveEmoticon.msg, Color.Red, true);       //Put the message into the RichTextBox
+            //richTextBox1.InsertImage(img);
+            //AppendText(richTextBox1, "", Color.Red, true);
+            ////AppendText(receiveEmoticon.sender + ": " + receiveEmoticon.msg, Color.Red, true);       //Put the message into the RichTextBox
             conversationList.Add(receiveEmoticon);   
         }
 
@@ -270,9 +297,15 @@ namespace chat_client
 
         private void ReceiveDeleteMessage(string message)
         {
-            string tID = message.Substring(4, 36);                      //Get GUID of received message
-            conversationList.RemoveAll(t=>t.msgID == tID);
-            Reload_Own_Text(); 
+            
+            string tID = message.Substring(4, 36);
+            if (conversationList[conversationList.Count - 1].msgID == tID) //Get GUID of received message
+            {
+                conversationList.RemoveAll(t=>t.msgID == tID);
+                Control c = flowLayoutPanel1.Controls[flowLayoutPanel1.Controls.Count - 1];
+                c.Dispose();
+            }
+            //Reload_Own_Text(); 
         }
 
         private void ReceiveTextMessage(string message)
@@ -285,7 +318,7 @@ namespace chat_client
             receivedMessage.sender = oHostChat;
             receivedMessage.read = true;
 
-            TMessage delivered = new TMessage(tID);                //Create the delivered message
+            TMessage delivered = new TMessage(tID);               //Create the delivered message
             delivered.header = "0006";
             delivered.msg = "DELIVERED";
             delivered.sender = "Me";
@@ -296,11 +329,43 @@ namespace chat_client
             byte[] msg = new byte[1500];
             msg = enc.GetBytes(delivered.header + delivered.msgID + delivered.isActive + delivered.msg);
 
-            sck.Send(msg);                                                                  //send back the message of delivered and read or not read
+            sck.Send(msg);                                    //send back the message of delivered and read or not read
 
-            AppendText(receivedMessage.sender + ": " + receivedMessage.msg, Color.Red, true);       //Put the message into the RichTextBox
-            conversationList.Add(receivedMessage);                                                 //Add the Object into the Conversation List
-                       
+            if (receivedMessage.msg.Count() > 0)
+            {
+                RichTextBox myERTF1 = new RichTextBox();
+
+                flowLayoutPanel1.Invoke((Action)delegate
+                {
+                    try
+                    {
+                        flowLayoutPanel1.Controls.Add(myERTF1);
+                    }
+                    catch (Exception aex)
+                    {
+                        MessageBox.Show(aex.ToString());
+                    }
+                });
+
+                AppendText(myERTF1, receivedMessage.sender + ": " + receivedMessage.msg, Color.Red, true);       //Put the message into the RichTextBox inside layout
+                int CountOfCharacters = 0;
+                myERTF1.Invoke((Action)delegate
+                {
+                    myERTF1.Dock = DockStyle.Top;
+                    myERTF1.BorderStyle = BorderStyle.None;
+                    myERTF1.Anchor = AnchorStyles.Top;
+                    foreach (char c in myERTF1.Text)
+                    {
+                        CountOfCharacters++;
+                    }
+                    int lineCount = 2 + (CountOfCharacters + 4) / 107;
+                    myERTF1.Size = new System.Drawing.Size(flowLayoutPanel1.Width - 24, lineCount * (Font.Height));
+                    flowLayoutPanel1.ScrollControlIntoView(myERTF1);
+
+                });
+
+                conversationList.Add(receivedMessage);
+            }   //end if recievedMessage.msg.count > 0
         }
 
         private int AnalyzeHeader(string header)
@@ -383,27 +448,37 @@ namespace chat_client
                 isLastMessageDelivered = false;
                 int size = msg.Length;
                 
-                if (size > 0)
+                if (size > 40)  //cause the message includes the header and the msgID which are 40 characters long, so anything else is actual message
                 {
-                    // Create a Run of plain text
-                    //Run myRun = new Run();
-                    //myRun.Text = sentMessage.sender + ": " + sentMessage.msg;
-
-                    //// Create a paragraph and add the Run to it.
-                    //Paragraph myParagraph = new Paragraph();
-                    //myParagraph.Inlines.Add(myRun);
-
-                    // Add the paragraph to the RichTextBox.
-                   // richTextBox1.Blocks.Add(myParagraph);
-
-
-
-
-                    string message = sentMessage.sender + ": " + sentMessage.msg;
-                    AppendText(message, Color.Blue, true);
                    
+                    string message = sentMessage.sender + ": " + sentMessage.msg;
+                    //dataGridView1.Rows.Add(message);
+                    //DataGridViewRow dgvr = dataGridView1.Rows[dataGridView1.Rows.Count-1];
+                    //dgvr.DefaultCellStyle.ForeColor = Color.Blue;
+
+                    ExRichTextBox myERTF = new ExRichTextBox();
+                    myERTF.Dock = DockStyle.Top;
+                    myERTF.BorderStyle = BorderStyle.None;
+                    myERTF.Anchor = AnchorStyles.Top;
+                    //myERTF.AutoSize = true;
+                    flowLayoutPanel1.Controls.Add(myERTF);
+                                                                  
+                    AppendText(myERTF, message, Color.Blue, false);
+                    
+                    int CountOfCharacters = 0;
+                    foreach(char c in myERTF.Text)
+                    {
+                        CountOfCharacters++;
+                    }
+                    int lineCount = 2 + (CountOfCharacters + 4)/ 107;
+                    myERTF.Size = new System.Drawing.Size(flowLayoutPanel1.Width - 24, lineCount*(Font.Height));
+                    //myERTF.ScrollBars = RichTextBoxScrollBars.None;
+
+                  
+                    flowLayoutPanel1.ScrollControlIntoView(myERTF);
+                   
+                                      
                     conversationList.Add(sentMessage);      //adding the object to the list of messages in conversation
-                    ScrollToBottom(richTextBox1);
                     SendSound();
                      
                     if(label6.Text == "Activated")
@@ -491,22 +566,22 @@ namespace chat_client
         }
 
 
-        public void AppendText(string text, Color color, bool AddNewLine = false)
+        public void AppendText(RichTextBox ertf, string text, Color color, bool AddNewLine = false)
         {
             if (AddNewLine)
             {
                 text += Environment.NewLine;
             }
 
-            richTextBox1.Invoke((Action)delegate
+            ertf.Invoke((Action)delegate
             {
-                richTextBox1.SelectionStart = richTextBox1.TextLength;
-                richTextBox1.SelectionLength = 0;
+                ertf.SelectionStart = ertf.TextLength;
+                ertf.SelectionLength = 0;
 
-                richTextBox1.SelectionColor = color;
-                richTextBox1.AppendText(text);
-                richTextBox1.SelectionColor = richTextBox1.ForeColor;
-                ScrollToBottom(richTextBox1);
+                ertf.SelectionColor = color;
+                ertf.AppendText(text);
+                ertf.SelectionColor = ertf.ForeColor;
+                ScrollToBottom(ertf);
             });
         }
 
@@ -569,27 +644,27 @@ namespace chat_client
                SendMessage(MyRichTextBox.Handle, WM_VSCROLL, (IntPtr)SB_PAGEBOTTOM, IntPtr.Zero);
            });
         }
-
-        //private void ReceiveEmoticon(Image image)
-        //{
-        //    AppendText(oHostChat + ": ", Color.Red);
-        //    richTextBox1.Invoke((Action)delegate
-        //    {
-        //        richTextBox1.SelectionStart = richTextBox1.Text.Length;
-        //        richTextBox1.InsertImage(image);
-        //    });
-        //    AppendText("", Color.Red, true);
-        //    ReceiveSound();
-        //    ScrollToBottom(richTextBox1);
-        //}
-
+      
         private void SendEmoticon(TMessage emoticon)
         {
-            AppendText(emoticon.sender + ": ", Color.Blue, false);
+            ExRichTextBox sendEmoTextBox = new ExRichTextBox();
+            AppendText(sendEmoTextBox, emoticon.sender + ": ", Color.Blue, false);
             Image image = Images.GetImage(emoticon.msg);
-            richTextBox1.InsertImage(image);
-            AppendText("", Color.Blue, true);
-            ScrollToBottom(richTextBox1);
+            sendEmoTextBox.InsertImage(image);
+            //AppendText(richTextBox1, "", Color.Blue, true);
+            //ScrollToBottom(richTextBox1);
+            flowLayoutPanel1.Controls.Add(sendEmoTextBox);
+           
+            sendEmoTextBox.Invoke((Action)delegate
+            {
+                sendEmoTextBox.Dock = DockStyle.Top;
+                sendEmoTextBox.BorderStyle = BorderStyle.None;
+                sendEmoTextBox.Anchor = AnchorStyles.Top;
+
+                sendEmoTextBox.Size = new System.Drawing.Size(flowLayoutPanel1.Width - 24, image.Height+5);
+                flowLayoutPanel1.ScrollControlIntoView(sendEmoTextBox);
+
+            });
 
             System.Text.ASCIIEncoding enc = new System.Text.ASCIIEncoding();
             byte[] msg = new byte[1500];
@@ -782,6 +857,9 @@ namespace chat_client
             sck.Send(msg);
 
             conversationList.RemoveAt(conversationList.Count - 1);
+            Control c = flowLayoutPanel1.Controls[flowLayoutPanel1.Controls.Count - 1];
+            c.Dispose();
+
             Reload_Own_Text();
             if (conversationList[conversationList.Count - 1].read == true)
             {
@@ -932,14 +1010,14 @@ namespace chat_client
                         theColor = Color.Brown;
                     if (AnalyzeHeader(storedMessage.header) == 1)
                     {
-                        AppendText(storedMessage.sender + ": " + storedMessage.msg, theColor, true);
+                        AppendText(richTextBox1, storedMessage.sender + ": " + storedMessage.msg, theColor, true);
                     }
                     else if(AnalyzeHeader(storedMessage.header) == 3)
                     {
                         Image img = Images.GetImage(storedMessage.msg);
-                        AppendText(storedMessage.sender + ": ", theColor, false);
+                        AppendText(richTextBox1, storedMessage.sender + ": ", theColor, false);
                         richTextBox1.InsertImage(img);
-                        AppendText("", theColor, true);
+                        AppendText(richTextBox1, "", theColor, true);
                     }
             }   
         }
@@ -949,7 +1027,23 @@ namespace chat_client
             textMessage.Focus();
             //System.Windows.Forms.SendKeys.Send("{tab}");
         }
-        
-        
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
+        {
+            dataGridView1.ClearSelection();
+        }
+
+        private void panel1_ControlAdded(object sender, ControlEventArgs e)
+        {
+            panel1.ScrollControlIntoView(e.Control);
+        }
+       
     }
+
+    
 }
